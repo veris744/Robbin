@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Robbin.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Robbin.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\RobbinEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.vsconfig" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\Robbin">
+      <UniqueIdentifier>{7383ECC8-365F-3CAF-94E8-8F653642D2F0}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Robbin\Robbin.Build.cs">
+      <Filter>Source\Robbin</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Robbin\Robbin.cpp">
+      <Filter>Source\Robbin</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\Robbin.h">
+      <Filter>Source\Robbin</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\RobbinCharacter.cpp">
+      <Filter>Source\Robbin</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\RobbinCharacter.h">
+      <Filter>Source\Robbin</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\RobbinGameMode.cpp">
+      <Filter>Source\Robbin</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\RobbinGameMode.h">
+      <Filter>Source\Robbin</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\RobbinPlayerController.cpp">
+      <Filter>Source\Robbin</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\RobbinPlayerController.h">
+      <Filter>Source\Robbin</Filter>
+    </ClInclude>
+    <Filter Include="Source\Robbin\Characters">
+      <UniqueIdentifier>{D02805F5-8BDC-3B53-A131-04222799A476}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Robbin\Characters\GenericCharacter.cpp">
+      <Filter>Source\Robbin\Characters</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\Characters\GenericCharacter.h">
+      <Filter>Source\Robbin\Characters</Filter>
+    </ClInclude>
+    <Filter Include="Source\Robbin\Characters\Player">
+      <UniqueIdentifier>{AF56CF19-8036-301F-8DB7-8939988B87B9}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Robbin\Characters\Player\PlayableCharacter.cpp">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\Characters\Player\PlayableCharacter.h">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

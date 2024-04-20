@@ -1,0 +1,26 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"D:/Robbin/Robbin/Content/StarterContent/Architecture/Floor_400x400.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Characters/Player/BP_PlayableCharacter.uasset",
+				"D:/Robbin/Robbin/Content/Characters/Mannequins/Animations/ABP_Manny.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Characters/Player/BP_PlayerController.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Input/Action/IA_SetDestination_Touch.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Input/Action/IA_SetDestination_Click.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Input/IMC_Default.uasset",
+				"D:/Robbin/Robbin/Content/TopDown/Input/IMC_Default.uasset",
+				"D:/Robbin/Robbin/Content/TopDown/Input/Actions/IA_SetDestination_Click.uasset",
+				"D:/Robbin/Robbin/Content/TopDown/Input/Actions/IA_SetDestination_Touch.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Characters/Player/BP_TopDownPlayerController.uasset",
+				"D:/Robbin/Robbin/Content/TopDown/Blueprints/BP_TopDownPlayerController.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Characters/AI/BP_TopDownPlayerController.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Characters/GenericCharacter.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/Characters/Player/PlayerController.uasset"
+			]
+		}
+	]
+}

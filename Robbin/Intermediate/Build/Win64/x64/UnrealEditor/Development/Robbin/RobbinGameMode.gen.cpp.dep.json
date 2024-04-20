@@ -1,0 +1,19 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\robbin\\robbin\\intermediate\\build\\win64\\unrealeditor\\inc\\robbin\\uht\\robbingamemode.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\robbin\\robbin\\intermediate\\build\\win64\\x64\\robbineditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\robbin\\robbin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\robbin\\definitions.robbin.h",
+            "d:\\robbin\\robbin\\source\\robbin\\robbingamemode.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\gamemodebase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\engine\\serverstatreplicator.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\serverstatreplicator.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gamemodebase.generated.h",
+            "d:\\robbin\\robbin\\intermediate\\build\\win64\\unrealeditor\\inc\\robbin\\uht\\robbingamemode.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
