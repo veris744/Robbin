@@ -54,12 +54,6 @@
     <ClInclude Include="..\..\Source\Robbin\RobbinGameMode.h">
       <Filter>Source\Robbin</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\Robbin\RobbinPlayerController.cpp">
-      <Filter>Source\Robbin</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\Robbin\RobbinPlayerController.h">
-      <Filter>Source\Robbin</Filter>
-    </ClInclude>
     <Filter Include="Source\Robbin\Characters">
       <UniqueIdentifier>{D02805F5-8BDC-3B53-A131-04222799A476}</UniqueIdentifier>
     </Filter>
@@ -76,6 +70,30 @@
       <Filter>Source\Robbin\Characters\Player</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\Robbin\Characters\Player\PlayableCharacter.h">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\Characters\Player\RobbinPlayerController.cpp">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\Characters\Player\RobbinPlayerController.h">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\Characters\Player\ScammerCharacter.cpp">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\Characters\Player\ScammerCharacter.h">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\Characters\Player\SpyCharacter.cpp">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\Characters\Player\SpyCharacter.h">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\Characters\Player\TechCharacter.cpp">
+      <Filter>Source\Robbin\Characters\Player</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\Characters\Player\TechCharacter.h">
       <Filter>Source\Robbin\Characters\Player</Filter>
     </ClInclude>
   </ItemGroup>
