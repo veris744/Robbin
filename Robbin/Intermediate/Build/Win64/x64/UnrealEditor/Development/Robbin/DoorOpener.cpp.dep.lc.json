@@ -1,0 +1,19 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\robbin\\robbin\\source\\robbin\\interactiveactors\\doors\\dooropener.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\robbin\\robbin\\intermediate\\build\\win64\\x64\\robbineditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\robbin\\robbin\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\robbin\\definitions.robbin.h",
+            "d:\\robbin\\robbin\\source\\robbin\\interactiveactors\\doors\\techdoor.h",
+            "d:\\robbin\\robbin\\intermediate\\build\\win64\\unrealeditor\\inc\\robbin\\uht\\techdoor.generated.h",
+            "d:\\robbin\\robbin\\source\\robbin\\interactiveactors\\doors\\dooropener.h",
+            "d:\\robbin\\robbin\\source\\robbin\\interactiveactors\\interactiveactor.h",
+            "d:\\robbin\\robbin\\intermediate\\build\\win64\\unrealeditor\\inc\\robbin\\uht\\interactiveactor.generated.h",
+            "d:\\robbin\\robbin\\intermediate\\build\\win64\\unrealeditor\\inc\\robbin\\uht\\dooropener.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

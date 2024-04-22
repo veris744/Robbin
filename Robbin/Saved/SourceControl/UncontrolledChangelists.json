@@ -5,23 +5,14 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
-				"D:/Robbin/Robbin/Content/StarterContent/Architecture/Floor_400x400.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Characters/Player/BP_PlayableCharacter.uasset",
-				"D:/Robbin/Robbin/Content/Characters/Mannequins/Animations/ABP_Manny.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Characters/Player/BP_PlayerController.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Input/Action/IA_SetDestination_Touch.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Input/Action/IA_SetDestination_Click.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Input/IMC_Default.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/InteractiveActors/BP_IA.uasset",
-				"D:/Robbin/Robbin/Content/__ExternalActors__/TopDown/Maps/TopDownMap/9/IZ/8XZO8Q9S745S0XTP7BPUZZ.uasset",
-				"D:/Robbin/Robbin/Content/TopDown/Input/IMC_Default.uasset",
-				"D:/Robbin/Robbin/Content/TopDown/Input/Actions/IA_SetDestination_Click.uasset",
-				"D:/Robbin/Robbin/Content/TopDown/Input/Actions/IA_SetDestination_Touch.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Characters/Player/BP_TopDownPlayerController.uasset",
-				"D:/Robbin/Robbin/Content/TopDown/Blueprints/BP_TopDownPlayerController.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Characters/AI/BP_TopDownPlayerController.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Characters/GenericCharacter.uasset",
-				"D:/Robbin/Robbin/Content/Blueprints/Characters/Player/PlayerController.uasset"
+				"D:/Robbin/Robbin/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/InteractiveActors/Doors/BP_DoorOpener.uasset",
+				"D:/Robbin/Robbin/Content/__ExternalActors__/TopDown/Maps/TopDownMap/C/OG/3YDGREL3JTM5FKAYQI5YXK.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/InteractiveActors/Doors/BP_TechDoor.uasset",
+				"D:/Robbin/Robbin/Content/__ExternalActors__/TopDown/Maps/TopDownMap/D/AO/72NIK1M5235YZD6QUKDBVD.uasset",
+				"D:/Robbin/Robbin/Content/Blueprints/InteractiveActors/Doors/BP_TechDoor.uasset",
+				"D:/Robbin/Robbin/Content/__ExternalActors__/TopDown/Maps/TopDownMap/E/2G/FJJREHTKSYOZHAA7XGGCCZ.uasset",
+				"D:/Robbin/Robbin/Content/__ExternalActors__/TopDown/Maps/TopDownMap/E/TU/8PV5WRAAPQXRAFIPVVVLM1.uasset"
 			]
 		}
 	]

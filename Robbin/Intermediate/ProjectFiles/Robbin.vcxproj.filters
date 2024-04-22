@@ -105,5 +105,26 @@
     <ClInclude Include="..\..\Source\Robbin\InteractiveActors\InteractiveActor.h">
       <Filter>Source\Robbin\InteractiveActors</Filter>
     </ClInclude>
+    <Filter Include="Source\Robbin\InteractiveActors\Doors">
+      <UniqueIdentifier>{2A76FB32-B94B-36CC-9D5A-2763B2ADD279}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Robbin\InteractiveActors\Doors\DoorOpener.cpp">
+      <Filter>Source\Robbin\InteractiveActors\Doors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\InteractiveActors\Doors\DoorOpener.h">
+      <Filter>Source\Robbin\InteractiveActors\Doors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\InteractiveActors\Doors\DoorTech.cpp">
+      <Filter>Source\Robbin\InteractiveActors\Doors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\InteractiveActors\Doors\DoorTech.h">
+      <Filter>Source\Robbin\InteractiveActors\Doors</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Robbin\InteractiveActors\Doors\TechDoor.cpp">
+      <Filter>Source\Robbin\InteractiveActors\Doors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\InteractiveActors\Doors\TechDoor.h">
+      <Filter>Source\Robbin\InteractiveActors\Doors</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
