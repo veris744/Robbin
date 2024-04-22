@@ -11,6 +11,7 @@
 #include "InputActionValue.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
+#include "Robbin/InteractiveActors/InteractiveActor.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -20,6 +21,8 @@ ARobbinPlayerController::ARobbinPlayerController()
 	DefaultMouseCursor = EMouseCursor::Default;
 	CachedDestination = FVector::ZeroVector;
 	FollowTime = 0.f;
+
+	bEnableMouseOverEvents = true;
 }
 
 void ARobbinPlayerController::BeginPlay()
@@ -86,7 +89,15 @@ void ARobbinPlayerController::OnSetDestinationTriggered()
 	// If we hit a surface, cache the location
 	if (bHitSuccessful)
 	{
-		CachedDestination = Hit.Location;
+		if (Hit.GetActor()->GetClass()->IsChildOf(AInteractiveActor::StaticClass()))
+		{
+			DestinationActor = Hit.GetActor();
+		}
+		else
+		{
+			DestinationActor = nullptr;
+			CachedDestination = Hit.Location;
+		}
 	}
 	
 	// Move towards mouse pointer or touch
@@ -100,15 +111,23 @@ void ARobbinPlayerController::OnSetDestinationTriggered()
 
 void ARobbinPlayerController::OnSetDestinationReleased()
 {
-	// If it was a short press
-	if (FollowTime <= ShortPressThreshold)
+	if (!DestinationActor)
 	{
-		// We move there and spawn some particles
-		UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, CachedDestination);
-		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FXCursor, CachedDestination, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
-	}
+		// If it was a short press
+		if (FollowTime <= ShortPressThreshold)
+		{
+			// We move there and spawn some particles
+			UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, CachedDestination);
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, FXCursor, CachedDestination, FRotator::ZeroRotator, FVector(1.f, 1.f, 1.f), true, true, ENCPoolMethod::None, true);
+		}
 
-	FollowTime = 0.f;
+		FollowTime = 0.f;
+	}
+	else
+	{
+		Cast<AInteractiveActor>(DestinationActor)->Activate();
+		DestinationActor = nullptr;
+	}
 }
 
 // Triggered every frame when the input is held down

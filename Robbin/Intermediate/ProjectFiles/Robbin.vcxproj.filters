@@ -96,5 +96,14 @@
     <ClInclude Include="..\..\Source\Robbin\Characters\Player\TechCharacter.h">
       <Filter>Source\Robbin\Characters\Player</Filter>
     </ClInclude>
+    <Filter Include="Source\Robbin\InteractiveActors">
+      <UniqueIdentifier>{2857564D-9C3A-3788-8E93-2260420D3FC7}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\Robbin\InteractiveActors\InteractiveActor.cpp">
+      <Filter>Source\Robbin\InteractiveActors</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Robbin\InteractiveActors\InteractiveActor.h">
+      <Filter>Source\Robbin\InteractiveActors</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

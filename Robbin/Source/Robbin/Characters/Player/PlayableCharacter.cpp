@@ -37,10 +37,18 @@ APlayableCharacter::APlayableCharacter()
 	// Activate ticking in order to update the cursor every frame.
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
+
 }
 
 void APlayableCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+}
+
+// Called to bind functionality to input
+void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
 }
 

@@ -63,6 +63,8 @@ private:
 
 	bool bIsTouch; // Is it a touch device
 	float FollowTime; // For how long it has been pressed
+
+	AActor* DestinationActor;
 };
 
 
