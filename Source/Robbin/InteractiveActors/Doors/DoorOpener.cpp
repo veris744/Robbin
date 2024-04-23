@@ -4,9 +4,11 @@
 #include "DoorOpener.h"
 #include "TechDoor.h"
 
-void ADoorOpener::Activate()
+bool ADoorOpener::Activate()
 {
-	if (DoorsToOpen.IsEmpty())	return;
+	if (!Super::Activate())	return false;
+
+	if (DoorsToOpen.IsEmpty())	return false;
 
 	for (ATechDoor* door : DoorsToOpen)
 	{
@@ -15,4 +17,6 @@ void ADoorOpener::Activate()
 		else if (door)
 			door->Open();
 	}
+
+	return true;
 }

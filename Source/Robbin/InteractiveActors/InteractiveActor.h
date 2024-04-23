@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = "Robbing")
 		UStaticMeshComponent* MeshComponent;
 
 	UFUNCTION()
@@ -37,5 +37,12 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-		virtual void Activate();
+		virtual bool Activate();
+
+
+	UPROPERTY(EditAnywhere, Category = "Robbing | Interaction")
+		bool bIsRanged = true;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing | Interaction")
+		float Range = 500;
 };
