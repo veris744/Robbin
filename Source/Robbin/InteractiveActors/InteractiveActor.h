@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Robbin/Characters/Player/RobbinPlayerController.h"
 #include "InteractiveActor.generated.h"
 
 UCLASS()
@@ -40,9 +41,16 @@ public:
 		virtual bool Activate();
 
 
-	UPROPERTY(EditAnywhere, Category = "Robbing | Interaction")
+	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
+		bool bIsUsable = true;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
 		bool bIsRanged = true;
 
-	UPROPERTY(EditAnywhere, Category = "Robbing | Interaction")
+	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
 		float Range = 500;
+
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Abilities")
+		AbilityOn AbilityNeeded = AbilityOn::ABILITY1;
 };

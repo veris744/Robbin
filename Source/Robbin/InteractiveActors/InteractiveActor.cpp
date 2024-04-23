@@ -44,6 +44,8 @@ bool AInteractiveActor::Activate()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("Mouse Clicked"));
 
+	if (!bIsUsable)	return false;
+
 	if (bIsRanged)
 	{
 		float distToPlayerSQ = FVector::DistSquared(GetActorLocation(),
