@@ -38,7 +38,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-		virtual bool Activate();
+		virtual bool Activate(UAbility* ability);
 
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
@@ -52,5 +52,5 @@ public:
 
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Abilities")
-		AbilityOn AbilityNeeded = AbilityOn::ABILITY1;
+		TArray<FString> Abilities;
 };

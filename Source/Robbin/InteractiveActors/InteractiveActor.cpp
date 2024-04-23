@@ -40,9 +40,9 @@ void AInteractiveActor::Hovering()
 {
 }
 
-bool AInteractiveActor::Activate()
+bool AInteractiveActor::Activate(UAbility* UAbility)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("Mouse Clicked"));
+	
 
 	if (!bIsUsable)	return false;
 

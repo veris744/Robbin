@@ -58,13 +58,13 @@ void ARobbinPlayerController::SetupInputComponent()
 		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Completed, this, &ARobbinPlayerController::OnTouchReleased);
 		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnTouchReleased);
 	
-		EnhancedInputComponent->BindAction(StartAbility1Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility1);
-		EnhancedInputComponent->BindAction(StartAbility2Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility2);
-		EnhancedInputComponent->BindAction(StartAbility3Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility3);
-		EnhancedInputComponent->BindAction(StartAbility4Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility4);
-		EnhancedInputComponent->BindAction(StartAbility5Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility5);
-		EnhancedInputComponent->BindAction(StartAbility6Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility6);
-		EnhancedInputComponent->BindAction(StartAbility7Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility7);
+		EnhancedInputComponent->BindAction(StartUAbility1Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility1);
+		EnhancedInputComponent->BindAction(StartUAbility2Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility2);
+		EnhancedInputComponent->BindAction(StartUAbility3Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility3);
+		EnhancedInputComponent->BindAction(StartUAbility4Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility4);
+		EnhancedInputComponent->BindAction(StartUAbility5Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility5);
+		EnhancedInputComponent->BindAction(StartUAbility6Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility6);
+		EnhancedInputComponent->BindAction(StartUAbility7Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility7);
 
 	
 	}
@@ -122,7 +122,8 @@ void ARobbinPlayerController::OnSetDestinationTriggered()
 
 void ARobbinPlayerController::OnSetDestinationReleased()
 {
-	if (!DestinationActor && ActiveAbility == AbilityOn::NOTACTIVE)
+	//No Active UAbility and Click On Floor
+	if (!DestinationActor && ActiveAbility == nullptr)
 	{
 		// If it was a short press
 		if (FollowTime <= ShortPressThreshold)
@@ -134,58 +135,140 @@ void ARobbinPlayerController::OnSetDestinationReleased()
 
 		FollowTime = 0.f;
 	}
-	else if (!DestinationActor)
+
+	//Active UAbility and Click On Floor
+	else if (!DestinationActor && ActiveAbility != nullptr)
 	{
-		Cast<APlayableCharacter>(GetCharacter())->ExecuteAbility(ActiveAbility);
+		if (ActiveAbility->bNeedInteractuable)
+		{
+			ActiveAbility = nullptr;
+			return;
+		}
+		else
+		{
+			Cast<APlayableCharacter>(GetCharacter())->ExecuteUAbility(ActiveAbility);
+			ActiveAbility = nullptr;
+			return;
+		}
 	}
+
+	//No Active UAbility and Click On Object
+	else if (DestinationActor && ActiveAbility == nullptr)
+	{
+		AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
+
+		Interactive->Activate(nullptr);
+	}
+
+	//Active UAbility and Click On Object
 	else
 	{
 		AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
 
-		if (Interactive->AbilityNeeded == ActiveAbility || Interactive->AbilityNeeded == AbilityOn::NONE)
+		if (Interactive->Abilities.IsEmpty())
 		{
-			Interactive->Activate();
-			DestinationActor = nullptr;
-			ActiveAbility = AbilityOn::NOTACTIVE;
+			ActiveAbility = nullptr;
+			return;
 		}
+
+		for (FString UAbilityId : Interactive->Abilities)
+		{
+			if (UAbilityId == ActiveAbility->ID)
+			{
+				Interactive->Activate(ActiveAbility);
+				DestinationActor = nullptr;
+				ActiveAbility = nullptr;
+				return;
+			}
+		}		
 	}
 }
 
-void ARobbinPlayerController::OnUseAbility1()
+void ARobbinPlayerController::OnUseUAbility1()
 {
-	ActiveAbility = AbilityOn::ABILITY1;
+	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
+	FString AbilityId = FindUAbilityId(GamePlayer->Type, 1);
+	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
 }
 
-void ARobbinPlayerController::OnUseAbility2()
+void ARobbinPlayerController::OnUseUAbility2()
 {
-	ActiveAbility = AbilityOn::ABILITY2;
+	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
+	FString AbilityId = FindUAbilityId(GamePlayer->Type, 2);
+	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
 }
 
-void ARobbinPlayerController::OnUseAbility3()
+void ARobbinPlayerController::OnUseUAbility3()
 {
-	ActiveAbility = AbilityOn::ABILITY3;
+	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
+	FString AbilityId = FindUAbilityId(GamePlayer->Type, 3);
+	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
 }
 
-void ARobbinPlayerController::OnUseAbility4()
+void ARobbinPlayerController::OnUseUAbility4()
 {
-	ActiveAbility = AbilityOn::ABILITY4;
+	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
+	FString AbilityId = FindUAbilityId(GamePlayer->Type, 4);
+	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
 }
 
-void ARobbinPlayerController::OnUseAbility5()
+void ARobbinPlayerController::OnUseUAbility5()
 {
-	ActiveAbility = AbilityOn::ABILITY5;
+	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
+	FString AbilityId = FindUAbilityId(GamePlayer->Type, 5);
+	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
 }
 
-void ARobbinPlayerController::OnUseAbility6()
+void ARobbinPlayerController::OnUseUAbility6()
 {
-	ActiveAbility = AbilityOn::ABILITY6;
+	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
+	FString AbilityId = FindUAbilityId(GamePlayer->Type, 6);
+	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
 }
 
-void ARobbinPlayerController::OnUseAbility7()
+void ARobbinPlayerController::OnUseUAbility7()
 {
-	ActiveAbility = AbilityOn::ABILITY7;
+	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
+	FString AbilityId = FindUAbilityId(GamePlayer->Type, 7);
+	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
 }
 
+FString ARobbinPlayerController::FindUAbilityId(CharacterType Type, int num)
+{
+	FString AbilityID = "";
+
+	switch (Type)
+	{
+	case CharacterType::TECH:
+		AbilityID += "TECH";
+		break;
+	case CharacterType::SPY:
+		AbilityID += "SPY";
+		break;
+	case CharacterType::SCAMMER:
+		AbilityID += "SCAM";
+		break;
+	default:
+		break;
+	}
+
+	AbilityID += FString::FromInt(num);
+
+	return AbilityID;
+}
+
+void ARobbinPlayerController::GetAbilityFromIdAndPlayer(APlayableCharacter* GamePlayer, FString AbilityId)
+{
+	for (UAbility* abi : GamePlayer->Abilities)
+	{
+		if (abi->ID == AbilityId)
+		{
+			ActiveAbility = abi;
+			return;
+		}
+	}
+	ActiveAbility = nullptr;
+}
 
 // Triggered every frame when the input is held down
 //void ARobbinPlayerController::OnTouchTriggered()

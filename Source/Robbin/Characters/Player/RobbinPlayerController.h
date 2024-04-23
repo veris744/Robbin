@@ -5,27 +5,14 @@
 #include "CoreMinimal.h"
 #include "Templates/SubclassOf.h"
 #include "GameFramework/PlayerController.h"
+#include "Robbin/Abilities/Ability.h"
+#include "PlayableCharacter.h"
 #include "RobbinPlayerController.generated.h"
 
 /** Forward declaration to improve compiling times */
 class UNiagaraSystem;
 class UInputMappingContext;
 class UInputAction;
-
-UENUM()
-enum class AbilityOn
-{
-	ABILITY1,
-	ABILITY2,
-	ABILITY3,
-	ABILITY4,
-	ABILITY5,
-	ABILITY6,
-	ABILITY7,
-	NONE,
-	NOTACTIVE,
-
-};
 
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -52,31 +39,31 @@ public:
 	
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	UInputAction* StartAbility1Action;
+	UInputAction* StartUAbility1Action;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartAbility2Action;
+	UInputAction* StartUAbility2Action;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartAbility3Action;
+	UInputAction* StartUAbility3Action;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartAbility4Action;
+	UInputAction* StartUAbility4Action;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartAbility5Action;
+	UInputAction* StartUAbility5Action;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartAbility6Action;
+	UInputAction* StartUAbility6Action;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartAbility7Action;
+	UInputAction* StartUAbility7Action;
 
 	/** Jump Input Action */
 	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
@@ -89,7 +76,7 @@ public:
 
 
 	UPROPERTY(VisibleAnywhere, Category = "Robbing|Abilities")
-		AbilityOn ActiveAbility = AbilityOn::NOTACTIVE;
+		UAbility* ActiveAbility;
 
 
 protected:
@@ -118,13 +105,16 @@ private:
 	AActor* DestinationActor;
 
 
-	void OnUseAbility1();
-	void OnUseAbility2();
-	void OnUseAbility3();
-	void OnUseAbility4();
-	void OnUseAbility5();
-	void OnUseAbility6();
-	void OnUseAbility7();
+	void OnUseUAbility1();
+	void OnUseUAbility2();
+	void OnUseUAbility3();
+	void OnUseUAbility4();
+	void OnUseUAbility5();
+	void OnUseUAbility6();
+	void OnUseUAbility7();
+
+	FString FindUAbilityId(CharacterType Type, int num);
+	void GetAbilityFromIdAndPlayer(APlayableCharacter* GamePlayer, FString AbilityId);
 };
 
 

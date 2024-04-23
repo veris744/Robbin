@@ -41,6 +41,31 @@ APlayableCharacter::APlayableCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
+
+	//Setup Abilities
+	UAbility* OpenCloseDoors = NewObject<UAbility>();
+	OpenCloseDoors->DisplayName = "Open/Close Door";
+	OpenCloseDoors->Description = "Open/Close Door";
+	OpenCloseDoors->AbilityNo = AbilityNumber::ABILITY1;
+	OpenCloseDoors->ID = "TECH1";
+	OpenCloseDoors->bNeedInteractuable = true;
+	Abilities.Add(OpenCloseDoors);
+
+	UAbility* DestroyDoors = NewObject<UAbility>();
+	DestroyDoors->DisplayName = "Destroy Door";
+	DestroyDoors->Description = "Destroy Door";
+	DestroyDoors->AbilityNo = AbilityNumber::ABILITY2;
+	DestroyDoors->ID = "TECH2";
+	Abilities.Add(DestroyDoors);
+
+	UAbility* UAbility3 = NewObject<UAbility>();
+	UAbility3->DisplayName = "UAbility 3";
+	UAbility3->Description = "UAbility 3";
+	UAbility3->AbilityNo = AbilityNumber::ABILITY3;
+	UAbility3->ID = "TECH3";
+	Abilities.Add(UAbility3);
+
+	
 }
 
 void APlayableCharacter::Tick(float DeltaSeconds)
@@ -48,29 +73,29 @@ void APlayableCharacter::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 }
 
-void APlayableCharacter::ExecuteAbility(AbilityOn Ability)
+void APlayableCharacter::ExecuteUAbility(UAbility* ability)
 {
-	switch (Ability)
+	switch (ability->AbilityNo)
 	{
-	case AbilityOn::ABILITY1:
+	case AbilityNumber::ABILITY1:
 		DoAbility1();
 		break;
-	case AbilityOn::ABILITY2:
+	case AbilityNumber::ABILITY2:
 		DoAbility2();
 		break;
-	case AbilityOn::ABILITY3:
+	case AbilityNumber::ABILITY3:
 		DoAbility3();
 		break;
-	case AbilityOn::ABILITY4:
+	case AbilityNumber::ABILITY4:
 		DoAbility4();
 		break;
-	case AbilityOn::ABILITY5:
+	case AbilityNumber::ABILITY5:
 		DoAbility5();
 		break;
-	case AbilityOn::ABILITY6:
+	case AbilityNumber::ABILITY6:
 		DoAbility6();
 		break;
-	case AbilityOn::ABILITY7:
+	case AbilityNumber::ABILITY7:
 		DoAbility7();
 		break;
 	default:
@@ -97,7 +122,7 @@ void APlayableCharacter::AddMovementInput(FVector WorldDirection, float ScaleVal
 		{
 			ARobbinPlayerController* RobbingController = Cast<ARobbinPlayerController>(Controller);
 
-			if (Controller && RobbingController->ActiveAbility == AbilityOn::NOTACTIVE)
+			if (Controller && RobbingController->ActiveAbility == nullptr)
 			{
 				Super::AddMovementInput(WorldDirection, ScaleValue, bForce);
 			}

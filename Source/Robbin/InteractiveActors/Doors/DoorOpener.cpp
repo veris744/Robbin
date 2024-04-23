@@ -4,12 +4,38 @@
 #include "DoorOpener.h"
 #include "TechDoor.h"
 
-bool ADoorOpener::Activate()
+ADoorOpener::ADoorOpener()
 {
-	if (!Super::Activate())	return false;
+	Abilities.Add("Tech1");
+	Abilities.Add("Tech2");
+}
+
+bool ADoorOpener::Activate(UAbility* ability)
+{
+	if (!Super::Activate(ability))	return false;
 
 	if (DoorsToOpen.IsEmpty())	return false;
 
+	if (ability == nullptr)
+	{
+		ActionWithoutUAbility();
+	}
+
+	else if (ability != nullptr && ability->ID == Abilities[0])
+	{
+		OpenCloseDoors();
+	}
+
+	else if (ability != nullptr && ability->ID == Abilities[1])
+	{
+		DestroyDoors();
+	}
+
+	return true;
+}
+
+void ADoorOpener::OpenCloseDoors()
+{
 	for (ATechDoor* door : DoorsToOpen)
 	{
 		if (door && door->bIsOpen)
@@ -17,6 +43,14 @@ bool ADoorOpener::Activate()
 		else if (door)
 			door->Open();
 	}
+}
 
-	return true;
+void ADoorOpener::DestroyDoors()
+{
+	bIsUsable = false;
+}
+
+void ADoorOpener::ActionWithoutUAbility()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("ActionWithoutUAbility"));
 }
