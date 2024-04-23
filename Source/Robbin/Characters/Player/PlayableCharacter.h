@@ -4,8 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Robbin/Characters/GenericCharacter.h"
-#include "RobbinPlayerController.h"
 #include "PlayableCharacter.generated.h"
+
+
+UENUM()
+enum class CharacterType
+{
+	TECH,
+	SPY,
+	SCAMMER
+};
+
 
 /**
  * 
@@ -28,17 +37,17 @@ public:
 
 
 	UFUNCTION()
-		void ExecuteAbility(AbilityOn Ability);
+		void ExecuteUAbility(UAbility* ability);
 
 
 	UFUNCTION()
 		virtual void DoAbility1() {};
 
 	UFUNCTION()
-		virtual void DoAbility2() { GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Ability2")); };
+		virtual void DoAbility2() {};
 
 	UFUNCTION()
-		virtual void DoAbility3() {};
+		virtual void DoAbility3() { GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("UAbility2")); };
 
 	UFUNCTION()
 		virtual void DoAbility4() {};
@@ -52,6 +61,11 @@ public:
 	UFUNCTION()
 		virtual void DoAbility7() {};
 
+	UPROPERTY()
+		TArray<UAbility*> Abilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Robbing|General")
+		CharacterType Type;
 
 private:
 	/** Top down camera */

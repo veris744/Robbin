@@ -18,8 +18,14 @@ class ROBBIN_API ADoorOpener : public AInteractiveActor
 	
 public:
 
-	virtual bool Activate() override;
+	ADoorOpener();
+
+	virtual bool Activate(UAbility* ability) override;
 
 	UPROPERTY(EditAnywhere, Category = "Robbing")
 		TArray<ATechDoor*> DoorsToOpen;
+
+	void OpenCloseDoors();
+	void DestroyDoors();
+	void ActionWithoutUAbility();
 };
