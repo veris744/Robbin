@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TechDoor.h"
 #include "DoorOpener.h"
+#include "TechDoor.h"
 
 void ADoorOpener::Activate()
 {
