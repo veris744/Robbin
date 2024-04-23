@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Robbin/Characters/GenericCharacter.h"
+#include "RobbinPlayerController.h"
 #include "PlayableCharacter.generated.h"
 
 /**
@@ -24,6 +25,33 @@ public:
 	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+
+
+	UFUNCTION()
+		void ExecuteAbility(AbilityOn Ability);
+
+
+	UFUNCTION()
+		virtual void DoAbility1() {};
+
+	UFUNCTION()
+		virtual void DoAbility2() { GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Ability2")); };
+
+	UFUNCTION()
+		virtual void DoAbility3() {};
+
+	UFUNCTION()
+		virtual void DoAbility4() {};
+
+	UFUNCTION()
+		virtual void DoAbility5() {};
+
+	UFUNCTION()
+		virtual void DoAbility6() {};
+
+	UFUNCTION()
+		virtual void DoAbility7() {};
+
 
 private:
 	/** Top down camera */

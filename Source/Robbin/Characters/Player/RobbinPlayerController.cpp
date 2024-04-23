@@ -12,6 +12,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
 #include "Robbin/InteractiveActors/InteractiveActor.h"
+#include "PlayableCharacter.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -52,10 +53,20 @@ void ARobbinPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnSetDestinationReleased);
 
 		// Setup touch input events
-		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Started, this, &ARobbinPlayerController::OnInputStarted);
-		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnTouchTriggered);
-		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Completed, this, &ARobbinPlayerController::OnTouchReleased);
-		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnTouchReleased);
+		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Started, this, &ARobbinPlayerController::OnInputStarted);
+		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnTouchTriggered);
+		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Completed, this, &ARobbinPlayerController::OnTouchReleased);
+		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnTouchReleased);
+	
+		EnhancedInputComponent->BindAction(StartAbility1Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility1);
+		EnhancedInputComponent->BindAction(StartAbility2Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility2);
+		EnhancedInputComponent->BindAction(StartAbility3Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility3);
+		EnhancedInputComponent->BindAction(StartAbility4Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility4);
+		EnhancedInputComponent->BindAction(StartAbility5Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility5);
+		EnhancedInputComponent->BindAction(StartAbility6Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility6);
+		EnhancedInputComponent->BindAction(StartAbility7Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseAbility7);
+
+	
 	}
 	else
 	{
@@ -111,7 +122,7 @@ void ARobbinPlayerController::OnSetDestinationTriggered()
 
 void ARobbinPlayerController::OnSetDestinationReleased()
 {
-	if (!DestinationActor)
+	if (!DestinationActor && ActiveAbility == AbilityOn::NOTACTIVE)
 	{
 		// If it was a short press
 		if (FollowTime <= ShortPressThreshold)
@@ -123,22 +134,69 @@ void ARobbinPlayerController::OnSetDestinationReleased()
 
 		FollowTime = 0.f;
 	}
+	else if (!DestinationActor)
+	{
+		Cast<APlayableCharacter>(GetCharacter())->ExecuteAbility(ActiveAbility);
+	}
 	else
 	{
-		Cast<AInteractiveActor>(DestinationActor)->Activate();
-		DestinationActor = nullptr;
+		AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
+
+		if (Interactive->AbilityNeeded == ActiveAbility || Interactive->AbilityNeeded == AbilityOn::NONE)
+		{
+			Interactive->Activate();
+			DestinationActor = nullptr;
+			ActiveAbility = AbilityOn::NOTACTIVE;
+		}
 	}
 }
 
-// Triggered every frame when the input is held down
-void ARobbinPlayerController::OnTouchTriggered()
+void ARobbinPlayerController::OnUseAbility1()
 {
-	bIsTouch = true;
-	OnSetDestinationTriggered();
+	ActiveAbility = AbilityOn::ABILITY1;
 }
 
-void ARobbinPlayerController::OnTouchReleased()
+void ARobbinPlayerController::OnUseAbility2()
 {
-	bIsTouch = false;
-	OnSetDestinationReleased();
+	ActiveAbility = AbilityOn::ABILITY2;
 }
+
+void ARobbinPlayerController::OnUseAbility3()
+{
+	ActiveAbility = AbilityOn::ABILITY3;
+}
+
+void ARobbinPlayerController::OnUseAbility4()
+{
+	ActiveAbility = AbilityOn::ABILITY4;
+}
+
+void ARobbinPlayerController::OnUseAbility5()
+{
+	ActiveAbility = AbilityOn::ABILITY5;
+}
+
+void ARobbinPlayerController::OnUseAbility6()
+{
+	ActiveAbility = AbilityOn::ABILITY6;
+}
+
+void ARobbinPlayerController::OnUseAbility7()
+{
+	ActiveAbility = AbilityOn::ABILITY7;
+}
+
+
+// Triggered every frame when the input is held down
+//void ARobbinPlayerController::OnTouchTriggered()
+//{
+//	bIsTouch = true;
+//	OnSetDestinationTriggered();
+//}
+//
+//void ARobbinPlayerController::OnTouchReleased()
+//{
+//	bIsTouch = false;
+//	OnSetDestinationReleased();
+//}
+

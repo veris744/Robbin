@@ -48,6 +48,36 @@ void APlayableCharacter::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 }
 
+void APlayableCharacter::ExecuteAbility(AbilityOn Ability)
+{
+	switch (Ability)
+	{
+	case AbilityOn::ABILITY1:
+		DoAbility1();
+		break;
+	case AbilityOn::ABILITY2:
+		DoAbility2();
+		break;
+	case AbilityOn::ABILITY3:
+		DoAbility3();
+		break;
+	case AbilityOn::ABILITY4:
+		DoAbility4();
+		break;
+	case AbilityOn::ABILITY5:
+		DoAbility5();
+		break;
+	case AbilityOn::ABILITY6:
+		DoAbility6();
+		break;
+	case AbilityOn::ABILITY7:
+		DoAbility7();
+		break;
+	default:
+		break;
+	}
+}
+
 // Called to bind functionality to input
 void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -65,7 +95,12 @@ void APlayableCharacter::AddMovementInput(FVector WorldDirection, float ScaleVal
 	{
 		if (!Hit.GetActor()->GetClass()->IsChildOf(AInteractiveActor::StaticClass()))
 		{
-			Super::AddMovementInput(WorldDirection, ScaleValue, bForce);
+			ARobbinPlayerController* RobbingController = Cast<ARobbinPlayerController>(Controller);
+
+			if (Controller && RobbingController->ActiveAbility == AbilityOn::NOTACTIVE)
+			{
+				Super::AddMovementInput(WorldDirection, ScaleValue, bForce);
+			}
 		}
 	}
 

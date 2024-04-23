@@ -12,6 +12,22 @@ class UNiagaraSystem;
 class UInputMappingContext;
 class UInputAction;
 
+UENUM()
+enum class AbilityOn
+{
+	ABILITY1,
+	ABILITY2,
+	ABILITY3,
+	ABILITY4,
+	ABILITY5,
+	ABILITY6,
+	ABILITY7,
+	NONE,
+	NOTACTIVE,
+
+};
+
+
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS()
@@ -36,11 +52,45 @@ public:
 	
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	UInputAction* SetDestinationClickAction;
+	UInputAction* StartAbility1Action;
 
 	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility2Action;
+
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility3Action;
+
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility4Action;
+
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility5Action;
+
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility6Action;
+
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility7Action;
+
+	/** Jump Input Action */
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* SetDestinationTouchAction;
+
+
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+		UInputAction* SetDestinationClickAction;
+
+
+	UPROPERTY(VisibleAnywhere, Category = "Robbing|Abilities")
+		AbilityOn ActiveAbility = AbilityOn::NOTACTIVE;
+
 
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
@@ -55,8 +105,9 @@ protected:
 	void OnInputStarted();
 	void OnSetDestinationTriggered();
 	void OnSetDestinationReleased();
-	void OnTouchTriggered();
-	void OnTouchReleased();
+	//void OnTouchTriggered();
+	//void OnTouchReleased();
+
 
 private:
 	FVector CachedDestination;
@@ -65,6 +116,15 @@ private:
 	float FollowTime; // For how long it has been pressed
 
 	AActor* DestinationActor;
+
+
+	void OnUseAbility1();
+	void OnUseAbility2();
+	void OnUseAbility3();
+	void OnUseAbility4();
+	void OnUseAbility5();
+	void OnUseAbility6();
+	void OnUseAbility7();
 };
 
 
