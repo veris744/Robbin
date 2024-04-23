@@ -10,6 +10,9 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
+#include "C:/Program Files/Epic Games/UE_5.3/Engine/Plugins/Experimental/Animation/ContextualAnimation/Source/ContextualAnimationEditor/Public/ContextualAnimEdMode.h"
+#include "RobbinPlayerController.h"
+#include "Robbin/InteractiveActors/InteractiveActor.h"
 
 APlayableCharacter::APlayableCharacter()
 {
@@ -49,6 +52,22 @@ void APlayableCharacter::Tick(float DeltaSeconds)
 void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+}
+
+void APlayableCharacter::AddMovementInput(FVector WorldDirection, float ScaleValue, bool bForce)
+{
+	FHitResult Hit;
+	bool bHitSuccessful = false;
+	bHitSuccessful = Cast<ARobbinPlayerController>(GetController())->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, true, Hit);
+
+	if (bHitSuccessful)
+	{
+		if (!Hit.GetActor()->GetClass()->IsChildOf(AInteractiveActor::StaticClass()))
+		{
+			Super::AddMovementInput(WorldDirection, ScaleValue, bForce);
+		}
+	}
 
 }
 
