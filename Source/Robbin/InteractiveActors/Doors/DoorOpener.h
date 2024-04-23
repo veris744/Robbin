@@ -18,7 +18,7 @@ class ROBBIN_API ADoorOpener : public AInteractiveActor
 	
 public:
 
-	virtual void Activate() override;
+	virtual bool Activate() override;
 
 	UPROPERTY(EditAnywhere, Category = "Robbing")
 		TArray<ATechDoor*> DoorsToOpen;

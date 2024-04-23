@@ -3,6 +3,8 @@
 
 #include "InteractiveActor.h"
 #include "Components/StaticMeshComponent.h"
+#include <Kismet/GameplayStatics.h>
+#include "GameFramework/Character.h"
 
 // Sets default values
 AInteractiveActor::AInteractiveActor()
@@ -38,9 +40,20 @@ void AInteractiveActor::Hovering()
 {
 }
 
-void AInteractiveActor::Activate()
+bool AInteractiveActor::Activate()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("Mouse Clicked"));
+
+	if (bIsRanged)
+	{
+		float distToPlayerSQ = FVector::DistSquared(GetActorLocation(),
+			UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)->GetActorLocation());
+
+		if (distToPlayerSQ > Range * Range)
+			return false;
+	}
+
+	return true;
 }
 
 // Called every frame
