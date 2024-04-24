@@ -10,9 +10,9 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
-#include "C:/Program Files/Epic Games/UE_5.3/Engine/Plugins/Experimental/Animation/ContextualAnimation/Source/ContextualAnimationEditor/Public/ContextualAnimEdMode.h"
 #include "RobbinPlayerController.h"
 #include "Robbin/InteractiveActors/InteractiveActor.h"
+#include <Robbin/Abilities/StaticAbilities.h>
 
 APlayableCharacter::APlayableCharacter()
 {
@@ -42,65 +42,58 @@ APlayableCharacter::APlayableCharacter()
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
 
-	//Setup Abilities
-	UAbility* OpenCloseDoors = NewObject<UAbility>();
-	OpenCloseDoors->DisplayName = "Open/Close Door";
-	OpenCloseDoors->Description = "Open/Close Door";
-	OpenCloseDoors->AbilityNo = AbilityNumber::ABILITY1;
-	OpenCloseDoors->ID = "TECH1";
-	OpenCloseDoors->bNeedInteractuable = true;
-	Abilities.Add(OpenCloseDoors);
-
-	UAbility* DestroyDoors = NewObject<UAbility>();
-	DestroyDoors->DisplayName = "Destroy Door";
-	DestroyDoors->Description = "Destroy Door";
-	DestroyDoors->AbilityNo = AbilityNumber::ABILITY2;
-	DestroyDoors->ID = "TECH2";
-	Abilities.Add(DestroyDoors);
-
-	UAbility* UAbility3 = NewObject<UAbility>();
-	UAbility3->DisplayName = "UAbility 3";
-	UAbility3->Description = "UAbility 3";
-	UAbility3->AbilityNo = AbilityNumber::ABILITY3;
-	UAbility3->ID = "TECH3";
-	Abilities.Add(UAbility3);
-
-	
 }
+
+void APlayableCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Abilities = UStaticAbilities::GetIdsFromCharacterType(StaticCast<uint8>(Type));
+}
+
 
 void APlayableCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 }
 
-void APlayableCharacter::ExecuteUAbility(UAbility* ability)
+void APlayableCharacter::ExecuteAbility(UAbility* ability, AInteractiveActor* InteractiveActor)
 {
-	switch (ability->AbilityNo)
+	if (ability)
 	{
-	case AbilityNumber::ABILITY1:
-		DoAbility1();
-		break;
-	case AbilityNumber::ABILITY2:
-		DoAbility2();
-		break;
-	case AbilityNumber::ABILITY3:
-		DoAbility3();
-		break;
-	case AbilityNumber::ABILITY4:
-		DoAbility4();
-		break;
-	case AbilityNumber::ABILITY5:
-		DoAbility5();
-		break;
-	case AbilityNumber::ABILITY6:
-		DoAbility6();
-		break;
-	case AbilityNumber::ABILITY7:
-		DoAbility7();
-		break;
-	default:
-		break;
+		switch (ability->AbilityNo)
+		{
+		case AbilityNumber::ABILITY1:
+			DoAbility1();
+			break;
+		case AbilityNumber::ABILITY2:
+			DoAbility2();
+			break;
+		case AbilityNumber::ABILITY3:
+			DoAbility3();
+			break;
+		case AbilityNumber::ABILITY4:
+			DoAbility4();
+			break;
+		case AbilityNumber::ABILITY5:
+			DoAbility5();
+			break;
+		case AbilityNumber::ABILITY6:
+			DoAbility6();
+			break;
+		case AbilityNumber::ABILITY7:
+			DoAbility7();
+			break;
+		default:
+			break;
+		}
 	}
+
+	if (InteractiveActor != nullptr)
+	{
+		InteractiveActor->Activate(ability);
+	}
+
 }
 
 // Called to bind functionality to input

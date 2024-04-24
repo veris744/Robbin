@@ -113,8 +113,7 @@ private:
 	void OnUseUAbility6();
 	void OnUseUAbility7();
 
-	FString FindUAbilityId(CharacterType Type, int num);
-	void GetAbilityFromIdAndPlayer(APlayableCharacter* GamePlayer, FString AbilityId);
+	FString FindAbilityId(CharacterType Type, int num);
 };
 
 

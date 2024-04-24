@@ -13,6 +13,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Robbin/InteractiveActors/InteractiveActor.h"
 #include "PlayableCharacter.h"
+#include <Robbin/Abilities/StaticAbilities.h>
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -135,105 +136,118 @@ void ARobbinPlayerController::OnSetDestinationReleased()
 
 		FollowTime = 0.f;
 	}
-
-	//Active UAbility and Click On Floor
-	else if (!DestinationActor && ActiveAbility != nullptr)
-	{
-		if (ActiveAbility->bNeedInteractuable)
-		{
-			ActiveAbility = nullptr;
-			return;
-		}
-		else
-		{
-			Cast<APlayableCharacter>(GetCharacter())->ExecuteUAbility(ActiveAbility);
-			ActiveAbility = nullptr;
-			return;
-		}
-	}
-
-	//No Active UAbility and Click On Object
-	else if (DestinationActor && ActiveAbility == nullptr)
-	{
-		AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
-
-		Interactive->Activate(nullptr);
-	}
-
-	//Active UAbility and Click On Object
 	else
 	{
-		AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
-
-		if (Interactive->Abilities.IsEmpty())
+		AInteractiveActor* Interactive = nullptr;
+		if (DestinationActor)
 		{
-			ActiveAbility = nullptr;
-			return;
+			Interactive = Cast<AInteractiveActor>(DestinationActor);
 		}
 
-		for (FString UAbilityId : Interactive->Abilities)
-		{
-			if (UAbilityId == ActiveAbility->ID)
-			{
-				Interactive->Activate(ActiveAbility);
-				DestinationActor = nullptr;
-				ActiveAbility = nullptr;
-				return;
-			}
-		}		
+		Cast<APlayableCharacter>(GetCharacter())->ExecuteAbility(ActiveAbility, Interactive);
+
+		DestinationActor = nullptr;
+		ActiveAbility = nullptr;
 	}
+
+
+	//Active UAbility and Click On Floor
+	//else if (!DestinationActor && ActiveAbility != nullptr)
+	//{
+	//	if (ActiveAbility->bNeedInteractuable)
+	//	{
+	//		ActiveAbility = nullptr;
+	//		return;
+	//	}
+	//	else
+	//	{
+	//		ActiveAbility = nullptr;
+	//		return;
+	//	}
+	//}
+
+	////No Active UAbility and Click On Object
+	//else if (DestinationActor && ActiveAbility == nullptr)
+	//{
+	//	AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
+
+	//	Interactive->Activate(nullptr);
+	//}
+
+	////Active UAbility and Click On Object
+	//else
+	//{
+	//	AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
+
+	//	if (Interactive->Abilities.IsEmpty())
+	//	{
+	//		ActiveAbility = nullptr;
+	//		return;
+	//	}
+
+	//	for (FString AbilityId : Interactive->Abilities)
+	//	{
+	//		if (AbilityId == ActiveAbility->ID)
+	//		{
+	//			Interactive->Activate(ActiveAbility);
+	//			DestinationActor = nullptr;
+	//			ActiveAbility = nullptr;
+	//			return;
+	//		}
+	//	}		
+	//}
 }
 
 void ARobbinPlayerController::OnUseUAbility1()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
-	FString AbilityId = FindUAbilityId(GamePlayer->Type, 1);
-	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
+	FString AbilityId = FindAbilityId(GamePlayer->Type, 1);
+	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
 }
 
 void ARobbinPlayerController::OnUseUAbility2()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
-	FString AbilityId = FindUAbilityId(GamePlayer->Type, 2);
-	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
+	FString AbilityId = FindAbilityId(GamePlayer->Type, 2);
+	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
 }
 
 void ARobbinPlayerController::OnUseUAbility3()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
-	FString AbilityId = FindUAbilityId(GamePlayer->Type, 3);
-	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
+	FString AbilityId = FindAbilityId(GamePlayer->Type, 3);
+	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
 }
 
 void ARobbinPlayerController::OnUseUAbility4()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
-	FString AbilityId = FindUAbilityId(GamePlayer->Type, 4);
-	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
+	FString AbilityId = FindAbilityId(GamePlayer->Type, 4);
+	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
 }
 
 void ARobbinPlayerController::OnUseUAbility5()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
-	FString AbilityId = FindUAbilityId(GamePlayer->Type, 5);
-	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
+	FString AbilityId = FindAbilityId(GamePlayer->Type, 5);
+	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
 }
 
 void ARobbinPlayerController::OnUseUAbility6()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
-	FString AbilityId = FindUAbilityId(GamePlayer->Type, 6);
-	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
+	FString AbilityId = FindAbilityId(GamePlayer->Type, 6);
+	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
 }
 
 void ARobbinPlayerController::OnUseUAbility7()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
-	FString AbilityId = FindUAbilityId(GamePlayer->Type, 7);
-	GetAbilityFromIdAndPlayer(GamePlayer, AbilityId);
+	FString AbilityId = FindAbilityId(GamePlayer->Type, 7);
+	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
 }
 
-FString ARobbinPlayerController::FindUAbilityId(CharacterType Type, int num)
+FString ARobbinPlayerController::FindAbilityId(CharacterType Type, int num)
 {
 	FString AbilityID = "";
 
@@ -257,18 +271,6 @@ FString ARobbinPlayerController::FindUAbilityId(CharacterType Type, int num)
 	return AbilityID;
 }
 
-void ARobbinPlayerController::GetAbilityFromIdAndPlayer(APlayableCharacter* GamePlayer, FString AbilityId)
-{
-	for (UAbility* abi : GamePlayer->Abilities)
-	{
-		if (abi->ID == AbilityId)
-		{
-			ActiveAbility = abi;
-			return;
-		}
-	}
-	ActiveAbility = nullptr;
-}
 
 // Triggered every frame when the input is held down
 //void ARobbinPlayerController::OnTouchTriggered()

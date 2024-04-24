@@ -23,7 +23,6 @@ AInteractiveActor::AInteractiveActor()
 void AInteractiveActor::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AInteractiveActor::OnBeginMouseOver(UPrimitiveComponent* TouchedComponent)
@@ -38,14 +37,14 @@ void AInteractiveActor::OnEndMouseOver(UPrimitiveComponent* TouchedComponent)
 
 void AInteractiveActor::Hovering()
 {
+
 }
 
-bool AInteractiveActor::Activate(UAbility* UAbility)
+bool AInteractiveActor::Activate(UAbility* ability)
 {
-	
-
 	if (!bIsUsable)	return false;
 
+	
 	if (bIsRanged)
 	{
 		float distToPlayerSQ = FVector::DistSquared(GetActorLocation(),
@@ -53,6 +52,15 @@ bool AInteractiveActor::Activate(UAbility* UAbility)
 
 		if (distToPlayerSQ > Range * Range)
 			return false;
+	}
+
+	if (!ability)
+	{
+		Actions[FString("NONE")]();
+	}
+	else if (Actions.Contains(ability->ID))
+	{
+		Actions[ability->ID]();
 	}
 
 	return true;

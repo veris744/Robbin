@@ -20,7 +20,7 @@ public:
 
 	ADoorOpener();
 
-	virtual bool Activate(UAbility* ability) override;
+	//virtual bool Activate(UAbility* ability) override;
 
 	UPROPERTY(EditAnywhere, Category = "Robbing")
 		TArray<ATechDoor*> DoorsToOpen;
