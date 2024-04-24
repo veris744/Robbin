@@ -6,6 +6,7 @@
 #include "Robbin/Characters/GenericCharacter.h"
 #include "PlayableCharacter.generated.h"
 
+class AInteractiveActor;
 
 UENUM()
 enum class CharacterType
@@ -15,6 +16,44 @@ enum class CharacterType
 	SCAMMER
 };
 
+static FString GetStringFromCharacterType(CharacterType Type)
+{
+	switch (Type)
+	{
+	case CharacterType::TECH:
+		return "TECH";
+		break;
+	case CharacterType::SPY:
+		return "SPY";
+		break;
+	case CharacterType::SCAMMER:
+		return "SCAM";
+		break;
+	default:
+		return "NONE";
+		break;
+	}
+}
+
+static FString GetStringFromCharacterType(int _Type)
+{
+	CharacterType Type = StaticCast<CharacterType>(_Type);
+	switch (Type)
+	{
+	case CharacterType::TECH:
+		return "TECH";
+		break;
+	case CharacterType::SPY:
+		return "SPY";
+		break;
+	case CharacterType::SCAMMER:
+		return "SCAM";
+		break;
+	default:
+		return "NONE";
+		break;
+	}
+}
 
 /**
  * 
@@ -27,6 +66,8 @@ class ROBBIN_API APlayableCharacter : public AGenericCharacter
 public:
 	APlayableCharacter();
 
+	virtual void BeginPlay() override;
+
 	// Called every frame.
 	virtual void Tick(float DeltaSeconds) override;
 
@@ -37,8 +78,15 @@ public:
 
 
 	UFUNCTION()
-		void ExecuteUAbility(UAbility* ability);
+		void ExecuteAbility(UAbility* ability, AInteractiveActor* InteractiveActor = nullptr);
 
+	UPROPERTY()
+		TArray<FString> Abilities;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Robbing|General")
+		CharacterType Type;
+
+protected:
 
 	UFUNCTION()
 		virtual void DoAbility1() {};
@@ -47,7 +95,7 @@ public:
 		virtual void DoAbility2() {};
 
 	UFUNCTION()
-		virtual void DoAbility3() { GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("UAbility2")); };
+		virtual void DoAbility3() {};
 
 	UFUNCTION()
 		virtual void DoAbility4() {};
@@ -60,12 +108,6 @@ public:
 
 	UFUNCTION()
 		virtual void DoAbility7() {};
-
-	UPROPERTY()
-		TArray<UAbility*> Abilities;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Robbing|General")
-		CharacterType Type;
 
 private:
 	/** Top down camera */

@@ -6,33 +6,26 @@
 
 ADoorOpener::ADoorOpener()
 {
-	Abilities.Add("Tech1");
-	Abilities.Add("Tech2");
-}
-
-bool ADoorOpener::Activate(UAbility* ability)
-{
-	if (!Super::Activate(ability))	return false;
-
-	if (DoorsToOpen.IsEmpty())	return false;
-
-	if (ability == nullptr)
-	{
-		ActionWithoutUAbility();
-	}
-
-	else if (ability != nullptr && ability->ID == Abilities[0])
+	auto OpenCloseLambda = [this]()
 	{
 		OpenCloseDoors();
-	}
+	};
 
-	else if (ability != nullptr && ability->ID == Abilities[1])
+	auto DestroyDoorsLambda = [this]()
 	{
-		DestroyDoors();
-	}
+		bIsUsable = false;
+	};
 
-	return true;
+	auto ActionWithoutUAbility = [this]()
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("ActionWithoutUAbility"));
+	};
+
+	Actions.Add(FString("TECH1"), OpenCloseLambda);
+	Actions.Add(FString("TECH2"), DestroyDoorsLambda);
+	Actions.Add(FString("NONE"), DestroyDoorsLambda);
 }
+
 
 void ADoorOpener::OpenCloseDoors()
 {
@@ -45,12 +38,3 @@ void ADoorOpener::OpenCloseDoors()
 	}
 }
 
-void ADoorOpener::DestroyDoors()
-{
-	bIsUsable = false;
-}
-
-void ADoorOpener::ActionWithoutUAbility()
-{
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("ActionWithoutUAbility"));
-}

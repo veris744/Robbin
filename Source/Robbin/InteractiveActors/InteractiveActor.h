@@ -7,6 +7,8 @@
 #include "Robbin/Characters/Player/RobbinPlayerController.h"
 #include "InteractiveActor.generated.h"
 
+typedef void (*AbilityFunctionPointer)();
+
 UCLASS()
 class ROBBIN_API AInteractiveActor : public AActor
 {
@@ -51,6 +53,5 @@ public:
 		float Range = 500;
 
 
-	UPROPERTY(EditAnywhere, Category = "Robbing|Abilities")
-		TArray<FString> Abilities;
+	TMap<FString, TFunction<void()>> Actions;
 };
