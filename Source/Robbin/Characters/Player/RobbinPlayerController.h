@@ -90,7 +90,7 @@ public:
 
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
-		CharacterType StartType;
+		CharacterType CurrentType;
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
 		APlayableCharacter* TechCharacter;
@@ -101,6 +101,25 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
 		APlayableCharacter* ScamCharacter;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbing|UI", meta = (DisplayName = "HUD Class"))
+		TSubclassOf<class UMainUserWidget> HUDClass;
+
+	UPROPERTY(VisibleAnywhere, Category = "Robbing|UI", Transient)
+		class UMainUserWidget* HUDWidget;
+
+
+	void OnUseUAbility1();
+	void OnUseUAbility2();
+	void OnUseUAbility3();
+	void OnUseUAbility4();
+	void OnUseUAbility5();
+	void OnUseUAbility6();
+	void OnUseUAbility7();
+
+
+	void OnChangeCharacterTech();
+	void OnChangeCharacterSpy();
+	void OnChangeCharacterScam();
 
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
@@ -118,18 +137,6 @@ protected:
 	//void OnTouchTriggered();
 	//void OnTouchReleased();
 
-	void OnUseUAbility1();
-	void OnUseUAbility2();
-	void OnUseUAbility3();
-	void OnUseUAbility4();
-	void OnUseUAbility5();
-	void OnUseUAbility6();
-	void OnUseUAbility7();
-
-
-	void OnChangeCharacterTech();
-	void OnChangeCharacterSpy();
-	void OnChangeCharacterScam();
 
 
 private:

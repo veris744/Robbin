@@ -14,10 +14,13 @@
 #include "Robbin/InteractiveActors/InteractiveActor.h"
 #include "PlayableCharacter.h"
 #include <Robbin/Abilities/StaticAbilities.h>
+#include <Robbin/UI/MainUserWidget.h>
 #include "TechCharacter.h"
 #include "SpyCharacter.h"
 #include "ScammerCharacter.h"
 #include <Kismet/GameplayStatics.h>
+#include "GameFramework/GameModeBase.h"
+#include <Subsystems/PanelExtensionSubsystem.h>
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -29,12 +32,28 @@ ARobbinPlayerController::ARobbinPlayerController()
 	FollowTime = 0.f;
 
 	bEnableMouseOverEvents = true;
+	
+	CurrentType = CharacterType::SPY;
+
 }
 
 void ARobbinPlayerController::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	if (GetWorld())
+	{
+		HUDWidget = CreateWidget<UMainUserWidget>(this, HUDClass);
+
+		if (HUDWidget)
+		{
+			HUDWidget->AddToViewport();
+			HUDWidget->SetVisibility(ESlateVisibility::Visible);
+			HUDWidget->PlayerController = this;
+			HUDWidget->setCharacterColor(CurrentType);
+		}
+	}
 
 	//Add Input Mapping Context
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
@@ -64,7 +83,12 @@ void ARobbinPlayerController::BeginPlay()
 		}
 	}
 
-	Possess(SpyCharacter);
+	if (CurrentType == CharacterType::TECH)
+		Possess(TechCharacter);
+	else if (CurrentType == CharacterType::SPY)
+		Possess(SpyCharacter);
+	else if (CurrentType == CharacterType::SCAMMER)
+		Possess(ScamCharacter);
 }
 
 void ARobbinPlayerController::SetupInputComponent()
@@ -240,6 +264,7 @@ void ARobbinPlayerController::OnChangeCharacterTech()
 	{
 		StopMovement();
 		Possess(TechCharacter);
+		CurrentType = CharacterType::TECH;
 	}
 }
 
@@ -249,6 +274,7 @@ void ARobbinPlayerController::OnChangeCharacterSpy()
 	{
 		StopMovement();
 		Possess(SpyCharacter);
+		CurrentType = CharacterType::SPY;
 	}
 }
 
@@ -258,6 +284,7 @@ void ARobbinPlayerController::OnChangeCharacterScam()
 	{
 		StopMovement();
 		Possess(ScamCharacter);
+		CurrentType = CharacterType::SCAMMER;
 	}
 }
 
