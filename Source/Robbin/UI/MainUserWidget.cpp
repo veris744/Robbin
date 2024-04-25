@@ -33,24 +33,52 @@ void UMainUserWidget::setCharacterColor(CharacterType CurrentCharacterType)
 		SpyCharacterButton->SetBackgroundColor(NonSelectedColor);
 		ScamCharacterButton->SetBackgroundColor(NonSelectedColor);
 	}
-		break;
+	break;
 	case CharacterType::SPY:
 	{
 		TechCharacterButton->SetBackgroundColor(NonSelectedColor);
 		SpyCharacterButton->SetBackgroundColor(SelectedColor);
 		ScamCharacterButton->SetBackgroundColor(NonSelectedColor);
 	}
-		break;
+	break;
 	case CharacterType::SCAMMER:
 	{
 		TechCharacterButton->SetBackgroundColor(NonSelectedColor);
 		SpyCharacterButton->SetBackgroundColor(NonSelectedColor);
 		ScamCharacterButton->SetBackgroundColor(SelectedColor);
 	}
-		break;
+	break;
 	default:
 		break;
 	}
+}
+
+void UMainUserWidget::SetAbilityButtonColor(int nAbility)
+{
+	Ability1Button->SetBackgroundColor(NonSelectedColor);
+	Ability2Button->SetBackgroundColor(NonSelectedColor);
+	Ability3Button->SetBackgroundColor(NonSelectedColor);
+	Ability4Button->SetBackgroundColor(NonSelectedColor);
+	Ability5Button->SetBackgroundColor(NonSelectedColor);
+	Ability6Button->SetBackgroundColor(NonSelectedColor);
+	Ability7Button->SetBackgroundColor(NonSelectedColor);
+
+	if (nAbility == 0)	return;
+
+	if (nAbility == 1)
+		Ability1Button->SetBackgroundColor(SelectedColor);
+	else if (nAbility == 2)
+		Ability2Button->SetBackgroundColor(SelectedColor);
+	else if (nAbility == 3)
+		Ability3Button->SetBackgroundColor(SelectedColor);
+	else if (nAbility == 4)
+		Ability4Button->SetBackgroundColor(SelectedColor);
+	else if (nAbility == 5)
+		Ability5Button->SetBackgroundColor(SelectedColor);
+	else if (nAbility == 6)
+		Ability6Button->SetBackgroundColor(SelectedColor);
+	else if (nAbility == 7)
+		Ability7Button->SetBackgroundColor(SelectedColor);
 }
 
 void UMainUserWidget::OnClickedTech()
@@ -58,9 +86,6 @@ void UMainUserWidget::OnClickedTech()
 	if (PlayerController)
 	{
 		PlayerController->OnChangeCharacterTech();
-		TechCharacterButton->SetBackgroundColor(SelectedColor);
-		SpyCharacterButton->SetBackgroundColor(NonSelectedColor);
-		ScamCharacterButton->SetBackgroundColor(NonSelectedColor);
 	}
 }
 
@@ -69,9 +94,6 @@ void UMainUserWidget::OnClickedSpy()
 	if (PlayerController)
 	{
 		PlayerController->OnChangeCharacterSpy();
-		TechCharacterButton->SetBackgroundColor(NonSelectedColor);
-		SpyCharacterButton->SetBackgroundColor(SelectedColor);
-		ScamCharacterButton->SetBackgroundColor(NonSelectedColor);
 	}
 }
 
@@ -80,9 +102,6 @@ void UMainUserWidget::OnClickedScam()
 	if (PlayerController)
 	{
 		PlayerController->OnChangeCharacterScam();
-		TechCharacterButton->SetBackgroundColor(NonSelectedColor);
-		SpyCharacterButton->SetBackgroundColor(NonSelectedColor);
-		ScamCharacterButton->SetBackgroundColor(SelectedColor);
 	}
 }
 
