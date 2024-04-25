@@ -67,6 +67,9 @@ public:
 	UFUNCTION()
 		void setCharacterColor(CharacterType CurrentCharacterType);
 
+	UFUNCTION()
+		void SetAbilityButtonColor(int nAbility);
+
 private:
 
 	//CHANGE CHARACTER FUNCTIONS

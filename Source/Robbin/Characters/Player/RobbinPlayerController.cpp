@@ -32,7 +32,7 @@ ARobbinPlayerController::ARobbinPlayerController()
 	FollowTime = 0.f;
 
 	bEnableMouseOverEvents = true;
-	
+
 	CurrentType = CharacterType::SPY;
 
 }
@@ -110,7 +110,7 @@ void ARobbinPlayerController::SetupInputComponent()
 		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnTouchTriggered);
 		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Completed, this, &ARobbinPlayerController::OnTouchReleased);
 		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnTouchReleased);
-	
+
 		EnhancedInputComponent->BindAction(StartUAbility1Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility1);
 		EnhancedInputComponent->BindAction(StartUAbility2Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility2);
 		EnhancedInputComponent->BindAction(StartUAbility3Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility3);
@@ -119,7 +119,7 @@ void ARobbinPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(StartUAbility6Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility6);
 		EnhancedInputComponent->BindAction(StartUAbility7Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility7);
 
-	
+
 		EnhancedInputComponent->BindAction(SetCharacterTech, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnChangeCharacterTech);
 		EnhancedInputComponent->BindAction(SetCharacterSpy, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnChangeCharacterSpy);
 		EnhancedInputComponent->BindAction(SetCharacterScam, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnChangeCharacterScam);
@@ -141,7 +141,7 @@ void ARobbinPlayerController::OnSetDestinationTriggered()
 {
 	// We flag that the input is being pressed
 	FollowTime += GetWorld()->GetDeltaSeconds();
-	
+
 	// We look for the location in the world where the player has pressed the input
 	FHitResult Hit;
 	bool bHitSuccessful = false;
@@ -167,7 +167,7 @@ void ARobbinPlayerController::OnSetDestinationTriggered()
 			CachedDestination = Hit.Location;
 		}
 	}
-	
+
 	// Move towards mouse pointer or touch
 	APawn* ControlledPawn = GetPawn();
 	if (ControlledPawn != nullptr)
@@ -204,57 +204,128 @@ void ARobbinPlayerController::OnSetDestinationReleased()
 
 		DestinationActor = nullptr;
 		ActiveAbility = nullptr;
-	}
 
+		HUDWidget->SetAbilityButtonColor(0);
+	}
 }
 
 void ARobbinPlayerController::OnUseUAbility1()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
 	FString AbilityId = FindAbilityId(GamePlayer->Type, 1);
-	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+
+	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
+	{
+		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		HUDWidget->SetAbilityButtonColor(1);
+	}
+	else
+	{
+		ActiveAbility = nullptr;
+		HUDWidget->SetAbilityButtonColor(0);
+	}
 }
 
 void ARobbinPlayerController::OnUseUAbility2()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
 	FString AbilityId = FindAbilityId(GamePlayer->Type, 2);
-	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+
+	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
+	{
+		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		HUDWidget->SetAbilityButtonColor(2);
+	}
+	else
+	{
+		ActiveAbility = nullptr;
+		HUDWidget->SetAbilityButtonColor(0);
+	}
 }
 
 void ARobbinPlayerController::OnUseUAbility3()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
 	FString AbilityId = FindAbilityId(GamePlayer->Type, 3);
-	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+
+	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
+	{
+		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		HUDWidget->SetAbilityButtonColor(3);
+	}
+	else
+	{
+		ActiveAbility = nullptr;
+		HUDWidget->SetAbilityButtonColor(0);
+	}
 }
 
 void ARobbinPlayerController::OnUseUAbility4()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
 	FString AbilityId = FindAbilityId(GamePlayer->Type, 4);
-	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+
+	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
+	{
+		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		HUDWidget->SetAbilityButtonColor(4);
+	}
+	else
+	{
+		ActiveAbility = nullptr;
+		HUDWidget->SetAbilityButtonColor(0);
+	}
 }
 
 void ARobbinPlayerController::OnUseUAbility5()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
 	FString AbilityId = FindAbilityId(GamePlayer->Type, 5);
-	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+
+	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
+	{
+		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		HUDWidget->SetAbilityButtonColor(5);
+	}
+	else
+	{
+		ActiveAbility = nullptr;
+		HUDWidget->SetAbilityButtonColor(0);
+	}
 }
 
 void ARobbinPlayerController::OnUseUAbility6()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
 	FString AbilityId = FindAbilityId(GamePlayer->Type, 6);
-	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+
+	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
+	{
+		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		HUDWidget->SetAbilityButtonColor(6);
+	}
+	else
+	{
+		ActiveAbility = nullptr;
+		HUDWidget->SetAbilityButtonColor(0);
+	}
 }
 
 void ARobbinPlayerController::OnUseUAbility7()
 {
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
 	FString AbilityId = FindAbilityId(GamePlayer->Type, 7);
-	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+
+	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
+	{
+		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		HUDWidget->SetAbilityButtonColor(7);
+	}
+	else
+	{
+		ActiveAbility = nullptr;
+		HUDWidget->SetAbilityButtonColor(0);
+	}
 }
 
 
@@ -265,6 +336,7 @@ void ARobbinPlayerController::OnChangeCharacterTech()
 		StopMovement();
 		Possess(TechCharacter);
 		CurrentType = CharacterType::TECH;
+		HUDWidget->setCharacterColor(CurrentType);
 	}
 }
 
@@ -275,6 +347,7 @@ void ARobbinPlayerController::OnChangeCharacterSpy()
 		StopMovement();
 		Possess(SpyCharacter);
 		CurrentType = CharacterType::SPY;
+		HUDWidget->setCharacterColor(CurrentType);
 	}
 }
 
@@ -285,6 +358,7 @@ void ARobbinPlayerController::OnChangeCharacterScam()
 		StopMovement();
 		Possess(ScamCharacter);
 		CurrentType = CharacterType::SCAMMER;
+		HUDWidget->setCharacterColor(CurrentType);
 	}
 }
 
