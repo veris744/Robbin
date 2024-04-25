@@ -14,6 +14,10 @@
 #include "Robbin/InteractiveActors/InteractiveActor.h"
 #include "PlayableCharacter.h"
 #include <Robbin/Abilities/StaticAbilities.h>
+#include "TechCharacter.h"
+#include "SpyCharacter.h"
+#include "ScammerCharacter.h"
+#include <Kismet/GameplayStatics.h>
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -37,6 +41,30 @@ void ARobbinPlayerController::BeginPlay()
 	{
 		Subsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
+
+	TArray<AActor*> actors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayableCharacter::StaticClass(), actors);
+
+	for (AActor* a : actors)
+	{
+		APlayableCharacter* pc = Cast<APlayableCharacter>(a);
+		switch (pc->Type)
+		{
+		case CharacterType::TECH:
+			TechCharacter = pc;
+			break;
+		case CharacterType::SPY:
+			SpyCharacter = pc;
+			break;
+		case CharacterType::SCAMMER:
+			ScamCharacter = pc;
+			break;
+		default:
+			break;
+		}
+	}
+
+	Possess(SpyCharacter);
 }
 
 void ARobbinPlayerController::SetupInputComponent()
@@ -68,6 +96,10 @@ void ARobbinPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(StartUAbility7Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility7);
 
 	
+		EnhancedInputComponent->BindAction(SetCharacterTech, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnChangeCharacterTech);
+		EnhancedInputComponent->BindAction(SetCharacterSpy, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnChangeCharacterSpy);
+		EnhancedInputComponent->BindAction(SetCharacterScam, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnChangeCharacterScam);
+
 	}
 	else
 	{
@@ -150,52 +182,6 @@ void ARobbinPlayerController::OnSetDestinationReleased()
 		ActiveAbility = nullptr;
 	}
 
-
-	//Active UAbility and Click On Floor
-	//else if (!DestinationActor && ActiveAbility != nullptr)
-	//{
-	//	if (ActiveAbility->bNeedInteractuable)
-	//	{
-	//		ActiveAbility = nullptr;
-	//		return;
-	//	}
-	//	else
-	//	{
-	//		ActiveAbility = nullptr;
-	//		return;
-	//	}
-	//}
-
-	////No Active UAbility and Click On Object
-	//else if (DestinationActor && ActiveAbility == nullptr)
-	//{
-	//	AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
-
-	//	Interactive->Activate(nullptr);
-	//}
-
-	////Active UAbility and Click On Object
-	//else
-	//{
-	//	AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
-
-	//	if (Interactive->Abilities.IsEmpty())
-	//	{
-	//		ActiveAbility = nullptr;
-	//		return;
-	//	}
-
-	//	for (FString AbilityId : Interactive->Abilities)
-	//	{
-	//		if (AbilityId == ActiveAbility->ID)
-	//		{
-	//			Interactive->Activate(ActiveAbility);
-	//			DestinationActor = nullptr;
-	//			ActiveAbility = nullptr;
-	//			return;
-	//		}
-	//	}		
-	//}
 }
 
 void ARobbinPlayerController::OnUseUAbility1()
@@ -245,6 +231,34 @@ void ARobbinPlayerController::OnUseUAbility7()
 	APlayableCharacter* GamePlayer = Cast<APlayableCharacter>(GetCharacter());
 	FString AbilityId = FindAbilityId(GamePlayer->Type, 7);
 	ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+}
+
+
+void ARobbinPlayerController::OnChangeCharacterTech()
+{
+	if (GetCharacter() != TechCharacter)
+	{
+		StopMovement();
+		Possess(TechCharacter);
+	}
+}
+
+void ARobbinPlayerController::OnChangeCharacterSpy()
+{
+	if (GetCharacter() != SpyCharacter)
+	{
+		StopMovement();
+		Possess(SpyCharacter);
+	}
+}
+
+void ARobbinPlayerController::OnChangeCharacterScam()
+{
+	if (GetCharacter() != ScamCharacter)
+	{
+		StopMovement();
+		Possess(ScamCharacter);
+	}
 }
 
 FString ARobbinPlayerController::FindAbilityId(CharacterType Type, int num)

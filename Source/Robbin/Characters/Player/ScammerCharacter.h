@@ -13,6 +13,12 @@ UCLASS()
 class ROBBIN_API AScammerCharacter : public APlayableCharacter
 {
 	GENERATED_BODY()
+
+public:
+	AScammerCharacter()
+	{
+		Type = CharacterType::SCAMMER;
+	}
 	
 protected:
 
