@@ -23,7 +23,7 @@ ADoorOpener::ADoorOpener()
 
 	Actions.Add(FString("TECH1"), OpenCloseLambda);
 	Actions.Add(FString("TECH2"), DestroyDoorsLambda);
-	Actions.Add(FString("NONE"), DestroyDoorsLambda);
+	Actions.Add(FString("NONE"), ActionWithoutUAbility);
 }
 
 

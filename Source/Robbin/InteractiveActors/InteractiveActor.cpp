@@ -56,7 +56,8 @@ bool AInteractiveActor::Activate(UAbility* ability)
 
 	if (!ability)
 	{
-		Actions[FString("NONE")]();
+		if (Actions.Contains(FString("NONE")))
+			Actions[FString(FString("NONE"))]();
 	}
 	else if (Actions.Contains(ability->ID))
 	{

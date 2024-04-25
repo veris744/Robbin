@@ -5,6 +5,8 @@
 #include "RobbinCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Abilities/StaticAbilities.h"
+#include "UI/MainUserWidget.h"
+
 
 ARobbinGameMode::ARobbinGameMode()
 {
@@ -27,4 +29,10 @@ ARobbinGameMode::ARobbinGameMode()
 	{
 		PlayerControllerClass = PlayerControllerBPClass.Class;
 	}
+
+	/*static ConstructorHelpers::FClassFinder<UMainUserWidget> UserWidgetBPClass(TEXT("/Game/Blueprints/UI/BP_MainUserWidget"));
+	if (UserWidgetBPClass.Class != NULL)
+	{
+		HUDClass = UserWidgetBPClass.Class;
+	}*/
 }
