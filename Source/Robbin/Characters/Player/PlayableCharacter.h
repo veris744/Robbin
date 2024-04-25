@@ -83,7 +83,7 @@ public:
 	UPROPERTY()
 		TArray<FString> Abilities;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Robbing|General")
+	UPROPERTY()
 		CharacterType Type;
 
 protected:

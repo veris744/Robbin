@@ -13,7 +13,13 @@ UCLASS()
 class ROBBIN_API ATechCharacter : public APlayableCharacter
 {
 	GENERATED_BODY()
-	
+
+public:
+	ATechCharacter()
+	{
+		Type = CharacterType::TECH;
+	}
+
 protected:
 
 	virtual void DoAbility1() override;

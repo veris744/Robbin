@@ -13,6 +13,9 @@
 class UNiagaraSystem;
 class UInputMappingContext;
 class UInputAction;
+class ATechCharacter;
+class ASpyCharacter;
+class AScammerCharacter;
 
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -37,15 +40,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
 	
-	/** Jump Input Action */
+	/** Ability Input Actions */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* StartUAbility1Action;
 
-	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* StartUAbility2Action;
 
-	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* StartUAbility3Action;
 
@@ -53,21 +54,30 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* StartUAbility4Action;
 
-	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* StartUAbility5Action;
 
-	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* StartUAbility6Action;
 
-	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* StartUAbility7Action;
 
+
+	/** Character Change Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+		UInputAction* SetCharacterTech;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+		UInputAction* SetCharacterSpy;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+		UInputAction* SetCharacterScam;
+
+
 	/** Jump Input Action */
 	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	UInputAction* SetDestinationTouchAction;
+	//UInputAction* SetDestinationTouchAction;
 
 
 	/** Jump Input Action */
@@ -77,6 +87,19 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = "Robbing|Abilities")
 		UAbility* ActiveAbility;
+
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
+		CharacterType StartType;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
+		APlayableCharacter* TechCharacter;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
+		APlayableCharacter* SpyCharacter;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
+		APlayableCharacter* ScamCharacter;
 
 
 protected:
@@ -95,6 +118,19 @@ protected:
 	//void OnTouchTriggered();
 	//void OnTouchReleased();
 
+	void OnUseUAbility1();
+	void OnUseUAbility2();
+	void OnUseUAbility3();
+	void OnUseUAbility4();
+	void OnUseUAbility5();
+	void OnUseUAbility6();
+	void OnUseUAbility7();
+
+
+	void OnChangeCharacterTech();
+	void OnChangeCharacterSpy();
+	void OnChangeCharacterScam();
+
 
 private:
 	FVector CachedDestination;
@@ -105,13 +141,6 @@ private:
 	AActor* DestinationActor;
 
 
-	void OnUseUAbility1();
-	void OnUseUAbility2();
-	void OnUseUAbility3();
-	void OnUseUAbility4();
-	void OnUseUAbility5();
-	void OnUseUAbility6();
-	void OnUseUAbility7();
 
 	FString FindAbilityId(CharacterType Type, int num);
 };

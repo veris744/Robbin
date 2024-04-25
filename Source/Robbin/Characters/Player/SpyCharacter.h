@@ -14,6 +14,12 @@ class ROBBIN_API ASpyCharacter : public APlayableCharacter
 {
 	GENERATED_BODY()
 	
+public:
+	ASpyCharacter()
+	{
+		Type = CharacterType::SPY;
+	}
+
 protected:
 
 	virtual void DoAbility1() override;
