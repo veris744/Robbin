@@ -20,6 +20,11 @@ void UMainUserWidget::NativeConstruct()
 	Ability5Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA5);
 	Ability6Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA6);
 	Ability7Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA7);
+
+	ExitCameraButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnExitCamera);
+
+	SetGameMode();
+	SetAbilityButtonColor(0);
 }
 
 
@@ -79,6 +84,40 @@ void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 		Ability6Button->SetBackgroundColor(SelectedColor);
 	else if (nAbility == 7)
 		Ability7Button->SetBackgroundColor(SelectedColor);
+}
+
+void UMainUserWidget::SetGameMode()
+{
+	TechCharacterButton->SetVisibility(ESlateVisibility::Visible);
+	SpyCharacterButton->SetVisibility(ESlateVisibility::Visible);
+	ScamCharacterButton->SetVisibility(ESlateVisibility::Visible);
+
+	Ability1Button->SetVisibility(ESlateVisibility::Visible);
+	Ability2Button->SetVisibility(ESlateVisibility::Visible);
+	Ability3Button->SetVisibility(ESlateVisibility::Visible);
+	Ability4Button->SetVisibility(ESlateVisibility::Visible);
+	Ability5Button->SetVisibility(ESlateVisibility::Visible);
+	Ability6Button->SetVisibility(ESlateVisibility::Visible);
+	Ability7Button->SetVisibility(ESlateVisibility::Visible);
+
+	ExitCameraButton->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void UMainUserWidget::SetCameraMode()
+{
+	TechCharacterButton->SetVisibility(ESlateVisibility::Hidden);
+	SpyCharacterButton->SetVisibility(ESlateVisibility::Hidden);
+	ScamCharacterButton->SetVisibility(ESlateVisibility::Hidden);
+
+	Ability1Button->SetVisibility(ESlateVisibility::Hidden);
+	Ability2Button->SetVisibility(ESlateVisibility::Hidden);
+	Ability3Button->SetVisibility(ESlateVisibility::Hidden);
+	Ability4Button->SetVisibility(ESlateVisibility::Hidden);
+	Ability5Button->SetVisibility(ESlateVisibility::Hidden);
+	Ability6Button->SetVisibility(ESlateVisibility::Hidden);
+	Ability7Button->SetVisibility(ESlateVisibility::Hidden);
+
+	ExitCameraButton->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UMainUserWidget::OnClickedTech()
@@ -159,4 +198,14 @@ void UMainUserWidget::OnClickedA7()
 	{
 		PlayerController->OnUseUAbility7();
 	}
+}
+
+void UMainUserWidget::OnExitCamera()
+{
+	SetGameMode();
+	PlayerController->SetViewTarget(PlayerController->GetCharacter());
+
+	FInputModeGameAndUI inputMode;
+	inputMode.SetHideCursorDuringCapture(false);
+	PlayerController->SetInputMode(inputMode);
 }
