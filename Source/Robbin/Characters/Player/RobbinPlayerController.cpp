@@ -105,11 +105,6 @@ void ARobbinPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Completed, this, &ARobbinPlayerController::OnSetDestinationReleased);
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnSetDestinationReleased);
 
-		// Setup touch input events
-		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Started, this, &ARobbinPlayerController::OnInputStarted);
-		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnTouchTriggered);
-		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Completed, this, &ARobbinPlayerController::OnTouchReleased);
-		//EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnTouchReleased);
 
 		EnhancedInputComponent->BindAction(StartUAbility1Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility1);
 		EnhancedInputComponent->BindAction(StartUAbility2Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility2);
@@ -387,16 +382,4 @@ FString ARobbinPlayerController::FindAbilityId(CharacterType Type, int num)
 }
 
 
-// Triggered every frame when the input is held down
-//void ARobbinPlayerController::OnTouchTriggered()
-//{
-//	bIsTouch = true;
-//	OnSetDestinationTriggered();
-//}
-//
-//void ARobbinPlayerController::OnTouchReleased()
-//{
-//	bIsTouch = false;
-//	OnSetDestinationReleased();
-//}
 

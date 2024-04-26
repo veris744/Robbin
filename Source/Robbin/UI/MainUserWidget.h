@@ -64,11 +64,20 @@ public:
 	UPROPERTY(meta = (BindWidget))
 		UButton* Ability7Button;
 
+
+	UPROPERTY(meta = (BindWidget))
+		UButton* ExitCameraButton;
+
 	UFUNCTION()
 		void setCharacterColor(CharacterType CurrentCharacterType);
 
 	UFUNCTION()
 		void SetAbilityButtonColor(int nAbility);
+
+
+	void SetGameMode();
+
+	void SetCameraMode();
 
 private:
 
@@ -106,6 +115,9 @@ private:
 
 	UFUNCTION()
 		void OnClickedA7();
+
+	UFUNCTION()
+		void OnExitCamera();
 
 
 	FColor SelectedColor = FColor::Cyan;
