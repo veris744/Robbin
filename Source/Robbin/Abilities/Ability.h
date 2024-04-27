@@ -31,7 +31,7 @@ public:
 	UAbility();
 	~UAbility();
 
-	FString ID = "";
+	FString ID = "NONE";
 
 	FString DisplayName = "";
 

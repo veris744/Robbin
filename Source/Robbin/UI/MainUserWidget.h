@@ -8,7 +8,10 @@
 
 
 class UButton;
+class UListView;
 class ARobbinPlayerController;
+
+
 
 /**
  * 
@@ -22,11 +25,16 @@ class ROBBIN_API UMainUserWidget : public UUserWidget
 
 public:
 
+
+
 	virtual void NativeConstruct() override;
 
 	UPROPERTY()
 	ARobbinPlayerController* PlayerController;
 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbing|Menu", meta = (DisplayName = "HUD Class"))
+		TSubclassOf<class UMenuItem> ItemClass;
 
 
 	//CHANGE CHARACTER BUTTONS
@@ -66,6 +74,10 @@ public:
 
 
 	UPROPERTY(meta = (BindWidget))
+		UListView* ActionsList;
+
+
+	UPROPERTY(meta = (BindWidget))
 		UButton* ExitCameraButton;
 
 	UFUNCTION()
@@ -74,6 +86,8 @@ public:
 	UFUNCTION()
 		void SetAbilityButtonColor(int nAbility);
 
+	UFUNCTION()
+	void ShowActionsMenu(AInteractiveActor* actor);
 
 	void SetGameMode();
 

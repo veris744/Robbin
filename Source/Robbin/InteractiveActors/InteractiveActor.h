@@ -42,6 +42,8 @@ public:
 	UFUNCTION()
 		virtual bool Activate(UAbility* ability);
 
+	UFUNCTION()
+		virtual void PrepareMenu();
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
 		bool bIsUsable = true;
@@ -52,6 +54,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
 		float Range = 500;
 
-
 	TMap<FString, TFunction<void()>> Actions;
+
+	//TMap<UAbility*, TFunction<void()>> DisplayableActions;
+	TMap<FString, TFunction<void()>> DisplayableActions;
 };

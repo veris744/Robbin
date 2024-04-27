@@ -5,6 +5,8 @@
 #include "Components/StaticMeshComponent.h"
 #include <Kismet/GameplayStatics.h>
 #include "GameFramework/Character.h"
+#include "Robbin/Characters/Player/RobbinPlayerController.h"
+#include "Robbin/UI/MainUserWidget.h"
 
 // Sets default values
 AInteractiveActor::AInteractiveActor()
@@ -58,7 +60,9 @@ bool AInteractiveActor::Activate(UAbility* ability)
 	if (!ability)
 	{
 		if (Actions.Contains(FString("NONE")))
-			Actions[FString(FString("NONE"))]();
+		{
+			PrepareMenu();
+		}
 	}
 	else if (Actions.Contains(ability->ID))
 	{
@@ -73,5 +77,12 @@ void AInteractiveActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AInteractiveActor::PrepareMenu()
+{
+	ARobbinPlayerController* pc = Cast<ARobbinPlayerController>(GetWorld()->GetFirstPlayerController());
+
+	pc->HUDWidget->ShowActionsMenu(this);
 }
 

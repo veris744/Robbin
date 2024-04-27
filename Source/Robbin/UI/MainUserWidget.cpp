@@ -3,11 +3,18 @@
 
 #include "MainUserWidget.h"
 #include "Robbin/Characters/Player/RobbinPlayerController.h"
+#include "Robbin/InteractiveActors/InteractiveActor.h"
 #include <Components/Button.h>
+#include "Components/ListView.h"
+#include <Robbin/Abilities/StaticAbilities.h>
+#include "MenuItem.h"
 
 
 void UMainUserWidget::NativeConstruct()
 {
+
+	Super::NativeConstruct();
+
 	TechCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedTech);
 	SpyCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedSpy);
 	ScamCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedScam);
@@ -25,6 +32,7 @@ void UMainUserWidget::NativeConstruct()
 
 	SetGameMode();
 	SetAbilityButtonColor(0);
+
 }
 
 
@@ -85,6 +93,22 @@ void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 	else if (nAbility == 7)
 		Ability7Button->SetBackgroundColor(SelectedColor);
 }
+
+void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
+{
+
+	TArray<FString> abis;
+	actor->DisplayableActions.GetKeys(abis);
+	for (FString ability : abis)
+	{
+		UMenuItem* item1 = CreateWidget<UMenuItem>(this, ItemClass);
+		item1->ItemName->SetText(FText::FromString(ability));
+
+		ActionsList->AddItem(item1);
+		item1->SetButtonText(ability);
+	}
+}
+
 
 void UMainUserWidget::SetGameMode()
 {
