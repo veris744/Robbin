@@ -96,22 +96,29 @@ void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 
 void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
 {
-
+	PlayerController->SetInputMode(FInputModeUIOnly());
+	
 	TArray<FString> abis;
 	actor->DisplayableActions.GetKeys(abis);
+
 	for (FString ability : abis)
 	{
 		UMenuItem* item1 = CreateWidget<UMenuItem>(this, ItemClass);
-		item1->ItemName->SetText(FText::FromString(ability));
-
 		ActionsList->AddItem(item1);
-		item1->SetButtonText(ability);
+		TempTexts.Add(ability);
 	}
 }
 
 
 void UMainUserWidget::SetGameMode()
 {
+	if (PlayerController)
+	{
+		FInputModeGameAndUI inputMode;
+		inputMode.SetHideCursorDuringCapture(false);
+		PlayerController->SetInputMode(inputMode);
+	}
+
 	TechCharacterButton->SetVisibility(ESlateVisibility::Visible);
 	SpyCharacterButton->SetVisibility(ESlateVisibility::Visible);
 	ScamCharacterButton->SetVisibility(ESlateVisibility::Visible);
@@ -228,8 +235,4 @@ void UMainUserWidget::OnExitCamera()
 {
 	SetGameMode();
 	PlayerController->SetViewTarget(PlayerController->GetCharacter());
-
-	FInputModeGameAndUI inputMode;
-	inputMode.SetHideCursorDuringCapture(false);
-	PlayerController->SetInputMode(inputMode);
 }

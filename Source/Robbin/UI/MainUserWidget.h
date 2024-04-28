@@ -73,9 +73,11 @@ public:
 		UButton* Ability7Button;
 
 
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 		UListView* ActionsList;
 
+	UPROPERTY(BlueprintReadWrite)
+		TArray<FString> TempTexts;
 
 	UPROPERTY(meta = (BindWidget))
 		UButton* ExitCameraButton;

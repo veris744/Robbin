@@ -30,7 +30,7 @@ public:
 	UTextBlock* ItemName;
 
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 		void SetButtonText(FString _Text);
 
 };
