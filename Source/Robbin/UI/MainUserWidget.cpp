@@ -3,11 +3,18 @@
 
 #include "MainUserWidget.h"
 #include "Robbin/Characters/Player/RobbinPlayerController.h"
+#include "Robbin/InteractiveActors/InteractiveActor.h"
 #include <Components/Button.h>
+#include "Components/ListView.h"
+#include <Robbin/Abilities/StaticAbilities.h>
+#include "MenuItem.h"
 
 
 void UMainUserWidget::NativeConstruct()
 {
+
+	Super::NativeConstruct();
+
 	TechCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedTech);
 	SpyCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedSpy);
 	ScamCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedScam);
@@ -25,6 +32,7 @@ void UMainUserWidget::NativeConstruct()
 
 	SetGameMode();
 	SetAbilityButtonColor(0);
+
 }
 
 
@@ -86,8 +94,37 @@ void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 		Ability7Button->SetBackgroundColor(SelectedColor);
 }
 
+void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
+{
+	DisplayedInteractive = actor;
+	PlayerController->SetInputMode(FInputModeUIOnly());
+	
+	TArray<FString> abis;
+	actor->DisplayableActions.GetKeys(abis);
+
+	for (FString ability : abis)
+	{
+		UMenuItem* item1 = CreateWidget<UMenuItem>(this, ItemClass);
+		ActionsList->AddItem(item1);
+		TempTexts.Add(ability);
+	}
+}
+
+
+void UMainUserWidget::SetMenuClickedFunctions(UMenuItem* MenuItem, FString NameElement)
+{
+	MenuItem->Function = DisplayedInteractive->DisplayableActions[NameElement];
+}
+
 void UMainUserWidget::SetGameMode()
 {
+	if (PlayerController)
+	{
+		FInputModeGameAndUI inputMode;
+		inputMode.SetHideCursorDuringCapture(false);
+		PlayerController->SetInputMode(inputMode);
+	}
+
 	TechCharacterButton->SetVisibility(ESlateVisibility::Visible);
 	SpyCharacterButton->SetVisibility(ESlateVisibility::Visible);
 	ScamCharacterButton->SetVisibility(ESlateVisibility::Visible);
@@ -101,6 +138,8 @@ void UMainUserWidget::SetGameMode()
 	Ability7Button->SetVisibility(ESlateVisibility::Visible);
 
 	ExitCameraButton->SetVisibility(ESlateVisibility::Hidden);
+
+	ActionsList->ClearListItems();
 }
 
 void UMainUserWidget::SetCameraMode()
@@ -119,6 +158,7 @@ void UMainUserWidget::SetCameraMode()
 
 	ExitCameraButton->SetVisibility(ESlateVisibility::Visible);
 }
+
 
 void UMainUserWidget::OnClickedTech()
 {
@@ -204,8 +244,4 @@ void UMainUserWidget::OnExitCamera()
 {
 	SetGameMode();
 	PlayerController->SetViewTarget(PlayerController->GetCharacter());
-
-	FInputModeGameAndUI inputMode;
-	inputMode.SetHideCursorDuringCapture(false);
-	PlayerController->SetInputMode(inputMode);
 }

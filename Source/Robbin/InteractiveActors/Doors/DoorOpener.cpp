@@ -16,6 +16,12 @@ ADoorOpener::ADoorOpener()
 		bIsUsable = false;
 	};
 
+	//UAbility* action = NewObject<UAbility>();
+	//action->DisplayName = "Testing";
+	//action->Description = "Testing door opener";
+	//action->AbilityNo = AbilityNumber::NONE;
+	//action->bNeedInteractuable = true;
+
 	auto ActionWithoutUAbility = [this]()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("ActionWithoutUAbility"));
@@ -23,7 +29,9 @@ ADoorOpener::ADoorOpener()
 
 	Actions.Add(FString("TECH1"), OpenCloseLambda);
 	Actions.Add(FString("TECH2"), DestroyDoorsLambda);
-	Actions.Add(FString("NONE"), ActionWithoutUAbility);
+	Actions.Add(FString("NONE"), nullptr);
+
+	DisplayableActions.Add(FString("Testing"), ActionWithoutUAbility);
 }
 
 
