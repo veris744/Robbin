@@ -96,6 +96,7 @@ void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 
 void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
 {
+	DisplayedInteractive = actor;
 	PlayerController->SetInputMode(FInputModeUIOnly());
 	
 	TArray<FString> abis;
@@ -109,6 +110,11 @@ void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
 	}
 }
 
+
+void UMainUserWidget::SetMenuClickedFunctions(UMenuItem* MenuItem, FString NameElement)
+{
+	MenuItem->Function = DisplayedInteractive->DisplayableActions[NameElement];
+}
 
 void UMainUserWidget::SetGameMode()
 {
@@ -132,6 +138,8 @@ void UMainUserWidget::SetGameMode()
 	Ability7Button->SetVisibility(ESlateVisibility::Visible);
 
 	ExitCameraButton->SetVisibility(ESlateVisibility::Hidden);
+
+	ActionsList->ClearListItems();
 }
 
 void UMainUserWidget::SetCameraMode()
@@ -150,6 +158,7 @@ void UMainUserWidget::SetCameraMode()
 
 	ExitCameraButton->SetVisibility(ESlateVisibility::Visible);
 }
+
 
 void UMainUserWidget::OnClickedTech()
 {

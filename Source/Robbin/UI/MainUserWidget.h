@@ -76,8 +76,11 @@ public:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 		UListView* ActionsList;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadOnly)
 		TArray<FString> TempTexts;
+
+	UPROPERTY(BlueprintReadOnly)
+		AInteractiveActor* DisplayedInteractive;
 
 	UPROPERTY(meta = (BindWidget))
 		UButton* ExitCameraButton;
@@ -91,9 +94,13 @@ public:
 	UFUNCTION()
 	void ShowActionsMenu(AInteractiveActor* actor);
 
+	UFUNCTION(BlueprintCallable)
+		void SetMenuClickedFunctions(UMenuItem* MenuItem, FString NameElement);
+
 	void SetGameMode();
 
 	void SetCameraMode();
+
 
 private:
 

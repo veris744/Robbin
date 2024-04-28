@@ -21,7 +21,9 @@ class ROBBIN_API UMenuItem : public UUserWidget
 public:
 
 	virtual void NativeConstruct() override;
-	virtual void NativePreConstruct() override;
+
+	UPROPERTY()
+	UMainUserWidget* HUD;
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* ItemButton;
@@ -33,4 +35,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void SetButtonText(FString _Text);
 
+	UFUNCTION(BlueprintCallable)
+		void SetHud(UMainUserWidget* HUDWidget);
+
+
+	UFUNCTION()
+		void OnClicked();
+
+	TFunction<void()> Function;
 };
