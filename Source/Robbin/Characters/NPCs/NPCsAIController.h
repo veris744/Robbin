@@ -10,6 +10,8 @@
 class AGenericNPC;
 class APlayableCharacter;/*
 class ARobbinCharacter;*/
+class UAIPerceptionComponent;
+class UAISenseConfig_Sight;
 /**
  * 
  */
@@ -28,7 +30,11 @@ private:
 	//UPROPERTY(VisibleAnywhere)
 	//	ARobbinCharacter* PlayableCharacter;
 
-		class UAISenseConfig_Sight* SightConfig;
+		UPROPERTY()
+		UAISenseConfig_Sight* SightConfig;
+
+		UPROPERTY()
+		UAIPerceptionComponent* PerceptionComp;
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Robbin | AI")

@@ -14,6 +14,8 @@
 ANPCsAIController::ANPCsAIController(FObjectInitializer const& ObjectInitializer)
 {
 	//AIPathFollowingComponent = CreateDefaultSubobject<UPathFollowingComponent>(TEXT("PathFollowing"));
+
+	SetUpPerceptionSystem();
 }
 
 void ANPCsAIController::BeginPlay()
@@ -78,10 +80,11 @@ void ANPCsAIController::OnPossess(APawn* InPawn)
 void ANPCsAIController::SetUpPerceptionSystem()
 {
 	SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
+	PerceptionComp = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("PercepConfig"));
 
-	if (SightConfig)
+	if (SightConfig && PerceptionComp)
 	{
-		SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
+		SetPerceptionComponent(*PerceptionComp);
 		SightConfig->SightRadius = 500.f;
 		SightConfig->LoseSightRadius = SightConfig->SightRadius + 25.f;
 		SightConfig->PeripheralVisionAngleDegrees = 90.f;
