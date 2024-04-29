@@ -3,9 +3,13 @@
 
 #include "NPCsAIController.h"
 #include "GenericNPC.h"
+#include "Robbin/Characters/Player/PlayableCharacter.h"
 #include "BehaviorTree/BlackboardData.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
+
+#include "Perception/AIPerceptionComponent.h"
+#include "Perception/AISenseConfig_Sight.h"
 
 ANPCsAIController::ANPCsAIController(FObjectInitializer const& ObjectInitializer)
 {
@@ -68,5 +72,35 @@ void ANPCsAIController::OnPossess(APawn* InPawn)
 			Blackboard = blackboardComponent;
 			RunBehaviorTree(tree);
 		}
+	}
+}
+
+void ANPCsAIController::SetUpPerceptionSystem()
+{
+	SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("SightConfig"));
+
+	if (SightConfig)
+	{
+		SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
+		SightConfig->SightRadius = 500.f;
+		SightConfig->LoseSightRadius = SightConfig->SightRadius + 25.f;
+		SightConfig->PeripheralVisionAngleDegrees = 90.f;
+		SightConfig->SetMaxAge(5.f);
+		SightConfig->AutoSuccessRangeFromLastSeenLocation = 520.f;
+		SightConfig->DetectionByAffiliation.bDetectEnemies = true;
+		SightConfig->DetectionByAffiliation.bDetectFriendlies = true;
+		SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
+
+		GetPerceptionComponent()->SetDominantSense(*SightConfig->GetSenseImplementation());
+		GetPerceptionComponent()->OnTargetPerceptionUpdated.AddDynamic(this, &ANPCsAIController::OnTargetDetected);
+		GetPerceptionComponent()->ConfigureSense(*SightConfig);
+	}
+}
+
+void ANPCsAIController::OnTargetDetected(AActor* Actor, FAIStimulus const Stimulus)
+{
+	if (auto* const character = Cast<APlayableCharacter>(Actor))
+	{
+		GetBlackboardComponent()->SetValueAsBool("CanSeePlayer", Stimulus.WasSuccessfullySensed());
 	}
 }

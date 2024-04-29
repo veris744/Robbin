@@ -4,9 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "Perception/AIPerceptionTypes.h"
 #include "NPCsAIController.generated.h"
 
 class AGenericNPC;
+class APlayableCharacter;/*
+class ARobbinCharacter;*/
 /**
  * 
  */
@@ -18,6 +21,14 @@ class ROBBIN_API ANPCsAIController : public AAIController
 private:
 	UPROPERTY(VisibleAnywhere)
 		AGenericNPC* GenericNPC;
+
+	UPROPERTY(VisibleAnywhere)
+		APlayableCharacter* PlayableCharacter;
+
+	//UPROPERTY(VisibleAnywhere)
+	//	ARobbinCharacter* PlayableCharacter;
+
+		class UAISenseConfig_Sight* SightConfig;
 
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Robbin | AI")
@@ -39,4 +50,10 @@ public:
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;
+
+private:
+	void SetUpPerceptionSystem();
+
+	UFUNCTION()
+	void OnTargetDetected(AActor* Actor, FAIStimulus const Stimulus);
 };
