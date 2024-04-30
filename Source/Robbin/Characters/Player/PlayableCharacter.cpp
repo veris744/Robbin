@@ -15,6 +15,7 @@
 #include "RobbinPlayerController.h"
 #include "Robbin/InteractiveActors/InteractiveActor.h"
 #include <Robbin/Abilities/StaticAbilities.h>
+#include <Robbin/RobbinGameMode.h>
 
 APlayableCharacter::APlayableCharacter()
 {
@@ -51,7 +52,8 @@ void APlayableCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Abilities = UStaticAbilities::GetIdsFromCharacterType(StaticCast<uint8>(Type));
+	AbilitiesManager = Cast<ARobbinGameMode>(GetWorld()->GetAuthGameMode())->GetAbilitiesManager();
+	Abilities = AbilitiesManager->GetIdsFromCharacterType(StaticCast<uint8>(Type));
 }
 
 
@@ -125,7 +127,7 @@ void APlayableCharacter::AddMovementInput(FVector WorldDirection, float ScaleVal
 			}
 		}
 	}
-
+}
 
 void APlayableCharacter::SetupStimulusSource()
 {

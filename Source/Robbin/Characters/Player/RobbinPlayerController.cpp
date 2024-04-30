@@ -21,6 +21,7 @@
 #include <Kismet/GameplayStatics.h>
 #include "GameFramework/GameModeBase.h"
 #include <Subsystems/PanelExtensionSubsystem.h>
+#include <Robbin/RobbinGameMode.h>
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -41,6 +42,8 @@ void ARobbinPlayerController::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	AbilitiesManager = Cast<ARobbinGameMode>(GetWorld()->GetAuthGameMode())->GetAbilitiesManager();
 
 	if (GetWorld())
 	{
@@ -211,7 +214,7 @@ void ARobbinPlayerController::OnUseUAbility1()
 
 	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
 	{
-		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		ActiveAbility = AbilitiesManager->GetFromId(AbilityId);
 		HUDWidget->SetAbilityButtonColor(1);
 	}
 	else
@@ -228,7 +231,7 @@ void ARobbinPlayerController::OnUseUAbility2()
 
 	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
 	{
-		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		ActiveAbility = AbilitiesManager->GetFromId(AbilityId);
 		HUDWidget->SetAbilityButtonColor(2);
 	}
 	else
@@ -245,7 +248,7 @@ void ARobbinPlayerController::OnUseUAbility3()
 
 	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
 	{
-		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		ActiveAbility = AbilitiesManager->GetFromId(AbilityId);
 		HUDWidget->SetAbilityButtonColor(3);
 	}
 	else
@@ -262,7 +265,7 @@ void ARobbinPlayerController::OnUseUAbility4()
 
 	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
 	{
-		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		ActiveAbility = AbilitiesManager->GetFromId(AbilityId);
 		HUDWidget->SetAbilityButtonColor(4);
 	}
 	else
@@ -279,7 +282,7 @@ void ARobbinPlayerController::OnUseUAbility5()
 
 	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
 	{
-		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		ActiveAbility = AbilitiesManager->GetFromId(AbilityId);
 		HUDWidget->SetAbilityButtonColor(5);
 	}
 	else
@@ -296,7 +299,7 @@ void ARobbinPlayerController::OnUseUAbility6()
 
 	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
 	{
-		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		ActiveAbility = AbilitiesManager->GetFromId(AbilityId);
 		HUDWidget->SetAbilityButtonColor(6);
 	}
 	else
@@ -313,7 +316,7 @@ void ARobbinPlayerController::OnUseUAbility7()
 
 	if (!ActiveAbility || ActiveAbility->ID != AbilityId)
 	{
-		ActiveAbility = UStaticAbilities::GetFromId(AbilityId);
+		ActiveAbility = AbilitiesManager->GetFromId(AbilityId);
 		HUDWidget->SetAbilityButtonColor(7);
 	}
 	else

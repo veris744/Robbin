@@ -16,12 +16,14 @@ class ROBBIN_API UStaticAbilities : public UObject
 {
 	GENERATED_BODY()
 
-		static TMap<FString, UAbility*> AllAbilities;
+	UPROPERTY()
+	TMap<FString, UAbility*> AllAbilities;
+
 public:
 
-	FORCEINLINE static void clear() { AllAbilities.Empty(); };
+	FORCEINLINE void clear() { AllAbilities.Empty(); };
 
-	static void init();
-	static UAbility* GetFromId(FString id);
-	static TArray<FString> GetIdsFromCharacterType(int Type);
+	void init();
+	UAbility* GetFromId(FString id);
+	TArray<FString> GetIdsFromCharacterType(int Type);
 };

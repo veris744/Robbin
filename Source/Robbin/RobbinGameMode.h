@@ -6,6 +6,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "RobbinGameMode.generated.h"
 
+
+class UStaticAbilities;
+
 UCLASS(minimalapi)
 class ARobbinGameMode : public AGameModeBase
 {
@@ -14,6 +17,9 @@ class ARobbinGameMode : public AGameModeBase
 public:
 	ARobbinGameMode();
 
+	UStaticAbilities* AbilitiesManager;
+
+	FORCEINLINE UStaticAbilities* GetAbilitiesManager() { return AbilitiesManager; };
 
 };
 

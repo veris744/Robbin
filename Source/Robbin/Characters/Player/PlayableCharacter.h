@@ -7,6 +7,7 @@
 #include "PlayableCharacter.generated.h"
 
 class AInteractiveActor;
+class UStaticAbilities;
 
 UENUM()
 enum class CharacterType
@@ -127,4 +128,7 @@ private:
 	virtual void AddMovementInput(FVector WorldDirection, float ScaleValue = 1.0f, bool bForce = false) override;
 	
 	void SetupStimulusSource();
+
+	UPROPERTY()
+	UStaticAbilities* AbilitiesManager;
 };

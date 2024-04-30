@@ -6,8 +6,6 @@
 #include <Robbin/Characters/Player/PlayableCharacter.h>
 
 
-TMap<FString, UAbility*> UStaticAbilities::AllAbilities;
-
 void UStaticAbilities::init()
 {
 	///////////////////////////////////////////////////////////////////////////////

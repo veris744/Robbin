@@ -28,6 +28,7 @@ ABasicDoor::ABasicDoor()
 	//action2->bNeedInteractuable = true;
 
 	Actions.Add(FString("NONE"), nullptr);
+
 	DisplayableActions.Add(FString("Testing"), Action1);
 	DisplayableActions.Add(FString("Testing2"), Action2);
 }

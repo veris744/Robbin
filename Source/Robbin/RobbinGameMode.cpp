@@ -10,8 +10,9 @@
 
 ARobbinGameMode::ARobbinGameMode()
 {
-	UStaticAbilities::clear();
-	UStaticAbilities::init();
+
+	AbilitiesManager = NewObject<UStaticAbilities>();
+	AbilitiesManager->init();
 
 	// use our custom PlayerController class
 	PlayerControllerClass = ARobbinPlayerController::StaticClass();

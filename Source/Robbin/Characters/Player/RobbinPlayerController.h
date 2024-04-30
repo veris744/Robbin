@@ -16,6 +16,7 @@ class UInputAction;
 class ATechCharacter;
 class ASpyCharacter;
 class AScammerCharacter;
+class UStaticAbilities;
 
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -148,6 +149,8 @@ private:
 	AActor* DestinationActor;
 
 
+	UPROPERTY()
+		UStaticAbilities* AbilitiesManager;
 
 	FString FindAbilityId(CharacterType Type, int num);
 };
