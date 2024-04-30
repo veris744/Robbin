@@ -8,6 +8,8 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "Perception/AISense_Sight.h"
 #include "Materials/Material.h"
 #include "Engine/World.h"
 #include "RobbinPlayerController.h"
@@ -41,6 +43,7 @@ APlayableCharacter::APlayableCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 
+	SetupStimulusSource();
 
 }
 
@@ -103,6 +106,7 @@ void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 }
 
+
 void APlayableCharacter::AddMovementInput(FVector WorldDirection, float ScaleValue, bool bForce)
 {
 	FHitResult Hit;
@@ -122,5 +126,16 @@ void APlayableCharacter::AddMovementInput(FVector WorldDirection, float ScaleVal
 		}
 	}
 
+
+void APlayableCharacter::SetupStimulusSource()
+{
+	StimulusSource = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("Stimulus"));
+	if (StimulusSource)
+	{
+		//StimulusSource->RegisterForSense(TSubclassOf<UAISense_Sight>());
+		//StimulusSource->RegisterWithPerceptionSystem();
+		StimulusSource->RegisterWithPerceptionSystem();
+		StimulusSource->RegisterForSense(UAISense_Sight::StaticClass());
+	}
 }
 
