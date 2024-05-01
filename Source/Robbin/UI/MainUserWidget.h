@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include <Components/ProgressBar.h>
 #include "MainUserWidget.generated.h"
 
 
@@ -71,6 +72,17 @@ public:
 	UPROPERTY(meta = (BindWidget))
 		UButton* Ability7Button;
 
+
+	///////////////////////////////////////////////////
+	/////////////////// SUSPICION /////////////////////
+	///////////////////////////////////////////////////
+
+
+	UPROPERTY(meta = (BindWidget))
+		UProgressBar* SuspicionLevel;
+
+	UFUNCTION()
+		void SetSuspicionLevelBar(float Percentage);
 
 	///////////////////////////////////////////////////
 	/////////////////// ACTIONS MENU //////////////////

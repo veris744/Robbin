@@ -92,6 +92,13 @@ void ARobbinPlayerController::BeginPlay()
 		Possess(SpyCharacter);
 	else if (CurrentType == CharacterType::SCAMMER)
 		Possess(ScamCharacter);
+
+	if (HUDWidget)
+	{
+		TechCharacter->HUDWidget = HUDWidget;
+		SpyCharacter->HUDWidget = HUDWidget;
+		ScamCharacter->HUDWidget = HUDWidget;
+	}
 }
 
 APlayableCharacter* ARobbinPlayerController::GetCurrentCharacter()

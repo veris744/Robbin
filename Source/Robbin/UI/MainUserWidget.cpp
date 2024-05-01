@@ -33,6 +33,7 @@ void UMainUserWidget::NativeConstruct()
 	SetGameMode();
 	SetAbilityButtonColor(0);
 
+	SuspicionLevel->SetPercent(0);
 }
 
 
@@ -92,6 +93,11 @@ void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 		Ability6Button->SetBackgroundColor(SelectedColor);
 	else if (nAbility == 7)
 		Ability7Button->SetBackgroundColor(SelectedColor);
+}
+
+void UMainUserWidget::SetSuspicionLevelBar(float Percentage)
+{
+	SuspicionLevel->SetPercent(Percentage/100);
 }
 
 void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)

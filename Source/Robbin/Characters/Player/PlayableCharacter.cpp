@@ -16,6 +16,7 @@
 #include "Robbin/InteractiveActors/InteractiveActor.h"
 #include <Robbin/Abilities/StaticAbilities.h>
 #include <Robbin/RobbinGameMode.h>
+#include <Robbin/UI/MainUserWidget.h>
 
 APlayableCharacter::APlayableCharacter()
 {
@@ -64,6 +65,10 @@ void APlayableCharacter::Tick(float DeltaSeconds)
 
 void APlayableCharacter::ExecuteAbility(UAbility* ability, AInteractiveActor* InteractiveActor)
 {
+	SuspicionLevel += 10;
+	if (SuspicionLevel > 100)	SuspicionLevel = 100;
+	HUDWidget->SetSuspicionLevelBar(SuspicionLevel);
+
 	if (ability)
 	{
 		switch (ability->AbilityNo)
