@@ -109,13 +109,13 @@ void ARobbinPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnSetDestinationReleased);
 
 
-		EnhancedInputComponent->BindAction(StartUAbility1Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility1);
-		EnhancedInputComponent->BindAction(StartUAbility2Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility2);
-		EnhancedInputComponent->BindAction(StartUAbility3Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility3);
-		EnhancedInputComponent->BindAction(StartUAbility4Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility4);
-		EnhancedInputComponent->BindAction(StartUAbility5Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility5);
-		EnhancedInputComponent->BindAction(StartUAbility6Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility6);
-		EnhancedInputComponent->BindAction(StartUAbility7Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility7);
+		EnhancedInputComponent->BindAction(StartAbility1Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility1);
+		EnhancedInputComponent->BindAction(StartAbility2Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility2);
+		EnhancedInputComponent->BindAction(StartAbility3Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility3);
+		EnhancedInputComponent->BindAction(StartAbility4Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility4);
+		EnhancedInputComponent->BindAction(StartAbility5Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility5);
+		EnhancedInputComponent->BindAction(StartAbility6Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility6);
+		EnhancedInputComponent->BindAction(StartAbility7Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility7);
 
 
 		EnhancedInputComponent->BindAction(SetCharacterTech, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnChangeCharacterTech);

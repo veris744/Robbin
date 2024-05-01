@@ -25,6 +25,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Robbing")
 		UStaticMeshComponent* MeshComponent;
 
+
+	///////////////////////////////////////////////////
+	/////////////// MOUSE INTERACTION /////////////////
+	///////////////////////////////////////////////////
+
 	UFUNCTION()
 		void OnBeginMouseOver(UPrimitiveComponent* TouchedComponent);
 
@@ -39,11 +44,23 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+
+	///////////////////////////////////////////////////
+	//////////// INTERACTIVE FUNCTIONS ////////////////
+	///////////////////////////////////////////////////
+
+
 	UFUNCTION()
 		virtual bool Activate(UAbility* ability);
 
 	UFUNCTION()
 		virtual void PrepareMenu();
+
+
+
+	///////////////////////////////////////////////////
+	//////////// INTERACTIVE PROPERTIES ///////////////
+	///////////////////////////////////////////////////
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
 		bool bIsUsable = true;

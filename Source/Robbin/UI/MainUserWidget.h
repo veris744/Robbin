@@ -25,19 +25,15 @@ class ROBBIN_API UMainUserWidget : public UUserWidget
 
 public:
 
-
-
 	virtual void NativeConstruct() override;
 
 	UPROPERTY()
 	ARobbinPlayerController* PlayerController;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbing|Menu", meta = (DisplayName = "HUD Class"))
-		TSubclassOf<class UMenuItem> ItemClass;
-
-
-	//CHANGE CHARACTER BUTTONS
+	///////////////////////////////////////////////////
+	////////////// CHARACTER BUTTONS //////////////////
+	///////////////////////////////////////////////////
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* TechCharacterButton;
@@ -49,7 +45,9 @@ public:
 	UButton* ScamCharacterButton;
 
 
-	//USE ABILITIES BUTTONS
+	///////////////////////////////////////////////////
+	////////////// ABILITIES BUTTONS //////////////////
+	///////////////////////////////////////////////////
 
 	UPROPERTY(meta = (BindWidget))
 		UButton* Ability1Button;
@@ -73,6 +71,14 @@ public:
 		UButton* Ability7Button;
 
 
+	///////////////////////////////////////////////////
+	/////////////////// ACTIONS MENU //////////////////
+	///////////////////////////////////////////////////
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbing|Menu", meta = (DisplayName = "HUD Class"))
+		TSubclassOf<class UMenuItem> ItemClass;
+
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
 		UListView* ActionsList;
 
@@ -82,17 +88,27 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 		AInteractiveActor* DisplayedInteractive;
 
+	UFUNCTION()
+		void ShowActionsMenu(AInteractiveActor* actor);
+
+
+	///////////////////////////////////////////////////
+	///////////////// CAMERA OPTIONS //////////////////
+	///////////////////////////////////////////////////
+
 	UPROPERTY(meta = (BindWidget))
 		UButton* ExitCameraButton;
+
+
+	///////////////////////////////////////////////////
+	//////////////////// SETTING //////////////////////
+	///////////////////////////////////////////////////
 
 	UFUNCTION()
 		void setCharacterColor(CharacterType CurrentCharacterType);
 
 	UFUNCTION()
 		void SetAbilityButtonColor(int nAbility);
-
-	UFUNCTION()
-	void ShowActionsMenu(AInteractiveActor* actor);
 
 	UFUNCTION(BlueprintCallable)
 		void SetMenuClickedFunctions(UMenuItem* MenuItem, FString NameElement);
@@ -104,7 +120,9 @@ public:
 
 private:
 
-	//CHANGE CHARACTER FUNCTIONS
+	///////////////////////////////////////////////////
+	////////// BUTTON CHARACTER FUNCTION //////////////
+	///////////////////////////////////////////////////
 
 	UFUNCTION()
 		void OnClickedTech();
@@ -116,7 +134,9 @@ private:
 		void OnClickedScam();
 
 
-	//USE ABILITIES FUNCTIONS
+	///////////////////////////////////////////////////
+	////////// BUTTON ABILITIES FUNCTION //////////////
+	///////////////////////////////////////////////////
 
 	UFUNCTION()
 		void OnClickedA1();
@@ -142,6 +162,11 @@ private:
 	UFUNCTION()
 		void OnExitCamera();
 
+
+
+	///////////////////////////////////////////////////
+	/////////////// DEFAULT VALUES ////////////////////
+	///////////////////////////////////////////////////
 
 	FColor SelectedColor = FColor::Cyan;
 

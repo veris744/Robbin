@@ -41,57 +41,61 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
 	
-	/** Ability Input Actions */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	UInputAction* StartUAbility1Action;
+	
+	///////////////////////////////////////////////////
+	//////////// ABILITY INPUT ACTIONS ////////////////
+	///////////////////////////////////////////////////
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartUAbility2Action;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input|Abilities", meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility1Action;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartUAbility3Action;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Abilities", meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility2Action;
 
-	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartUAbility4Action;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Abilities", meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility3Action;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Abilities", meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility4Action;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartUAbility5Action;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Abilities", meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility5Action;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartUAbility6Action;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Abilities", meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility6Action;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* StartUAbility7Action;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Abilities", meta = (AllowPrivateAccess = "true"))
+	UInputAction* StartAbility7Action;
 
 
-	/** Character Change Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+
+	///////////////////////////////////////////////////
+	//////////// CHARACTER INPUT ACTION ///////////////
+	///////////////////////////////////////////////////
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Characters", meta = (AllowPrivateAccess = "true"))
 		UInputAction* SetCharacterTech;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Characters", meta = (AllowPrivateAccess = "true"))
 		UInputAction* SetCharacterSpy;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Characters", meta = (AllowPrivateAccess = "true"))
 		UInputAction* SetCharacterScam;
 
 
-	/** Jump Input Action */
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	//UInputAction* SetDestinationTouchAction;
+	///////////////////////////////////////////////////
+	///////////// MOVEMENT INPUT ACTION ///////////////
+	///////////////////////////////////////////////////
 
-
 	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Movement", meta = (AllowPrivateAccess = "true"))
 		UInputAction* SetDestinationClickAction;
 
 
-	UPROPERTY(VisibleAnywhere, Category = "Robbing|Abilities")
-		UAbility* ActiveAbility;
 
-
-	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
-		CharacterType CurrentType;
+	///////////////////////////////////////////////////
+	/////////////// CHARACTER CLASSES /////////////////
+	///////////////////////////////////////////////////
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
 		APlayableCharacter* TechCharacter;
@@ -102,6 +106,22 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
 		APlayableCharacter* ScamCharacter;
 
+
+	///////////////////////////////////////////////////
+	//////////////////// STATE ////////////////////////
+	///////////////////////////////////////////////////
+
+	UPROPERTY(VisibleAnywhere, Category = "Robbing|Abilities")
+		UAbility* ActiveAbility;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
+		CharacterType CurrentType;
+
+
+	///////////////////////////////////////////////////
+	//////////////////// HUD //////////////////////////
+	///////////////////////////////////////////////////
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbing|UI", meta = (DisplayName = "HUD Class"))
 		TSubclassOf<class UMainUserWidget> HUDClass;
 
@@ -109,18 +129,6 @@ public:
 		class UMainUserWidget* HUDWidget;
 
 
-	void OnUseUAbility1();
-	void OnUseUAbility2();
-	void OnUseUAbility3();
-	void OnUseUAbility4();
-	void OnUseUAbility5();
-	void OnUseUAbility6();
-	void OnUseUAbility7();
-
-
-	void OnChangeCharacterTech();
-	void OnChangeCharacterSpy();
-	void OnChangeCharacterScam();
 
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
@@ -131,16 +139,35 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
-	/** Input handlers for SetDestination action. */
+
+	///////////////////////////////////////////////////
+	///////////// INPUT FUNCTIONS /////////////////////
+	///////////////////////////////////////////////////
+
 	void OnInputStarted();
 	void OnSetDestinationTriggered();
 	void OnSetDestinationReleased();
-	//void OnTouchTriggered();
-	//void OnTouchReleased();
 
+public:
+	void OnUseUAbility1();
+	void OnUseUAbility2();
+	void OnUseUAbility3();
+	void OnUseUAbility4();
+	void OnUseUAbility5();
+	void OnUseUAbility6();
+	void OnUseUAbility7();
+
+	void OnChangeCharacterTech();
+	void OnChangeCharacterSpy();
+	void OnChangeCharacterScam();
 
 
 private:
+
+	///////////////////////////////////////////////////
+	/////////////////// INTERNAL //////////////////////
+	///////////////////////////////////////////////////
+
 	FVector CachedDestination;
 
 	bool bIsTouch; // Is it a touch device
@@ -150,7 +177,7 @@ private:
 
 
 	UPROPERTY()
-		UStaticAbilities* AbilitiesManager;
+	UStaticAbilities* AbilitiesManager;
 
 	FString FindAbilityId(CharacterType Type, int num);
 };

@@ -96,6 +96,8 @@ void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 
 void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
 {
+	if (!actor)	return;
+
 	DisplayedInteractive = actor;
 	PlayerController->SetInputMode(FInputModeUIOnly());
 	
