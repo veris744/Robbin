@@ -127,6 +127,8 @@ void UMainUserWidget::SetGameMode()
 		PlayerController->SetInputMode(inputMode);
 	}
 
+	bInGameMode = true;
+
 	TechCharacterButton->SetVisibility(ESlateVisibility::Visible);
 	SpyCharacterButton->SetVisibility(ESlateVisibility::Visible);
 	ScamCharacterButton->SetVisibility(ESlateVisibility::Visible);
@@ -146,6 +148,8 @@ void UMainUserWidget::SetGameMode()
 
 void UMainUserWidget::SetCameraMode()
 {
+	bInGameMode = false;
+
 	TechCharacterButton->SetVisibility(ESlateVisibility::Hidden);
 	SpyCharacterButton->SetVisibility(ESlateVisibility::Hidden);
 	ScamCharacterButton->SetVisibility(ESlateVisibility::Hidden);

@@ -30,6 +30,7 @@ public:
 	UPROPERTY()
 	ARobbinPlayerController* PlayerController;
 
+	bool bInGameMode = true;
 
 	///////////////////////////////////////////////////
 	////////////// CHARACTER BUTTONS //////////////////
