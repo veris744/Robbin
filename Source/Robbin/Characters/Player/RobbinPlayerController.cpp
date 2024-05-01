@@ -92,6 +92,13 @@ void ARobbinPlayerController::BeginPlay()
 		Possess(SpyCharacter);
 	else if (CurrentType == CharacterType::SCAMMER)
 		Possess(ScamCharacter);
+
+	if (HUDWidget)
+	{
+		TechCharacter->HUDWidget = HUDWidget;
+		SpyCharacter->HUDWidget = HUDWidget;
+		ScamCharacter->HUDWidget = HUDWidget;
+	}
 }
 
 APlayableCharacter* ARobbinPlayerController::GetCurrentCharacter()
@@ -225,22 +232,26 @@ void ARobbinPlayerController::OnSetDestinationReleased()
 
 void ARobbinPlayerController::OnSetRotateRTriggered()
 {
-	GetCurrentCharacter()->RotateCamera(true);
+	if (HUDWidget->bInGameMode)
+		GetCurrentCharacter()->RotateCamera(true);
 }
 
 void ARobbinPlayerController::OnSetRotateLTriggered()
 {
-	GetCurrentCharacter()->RotateCamera(false);
+	if (HUDWidget->bInGameMode)
+		GetCurrentCharacter()->RotateCamera(false);
 }
 
 void ARobbinPlayerController::OnSetZoomInTriggered()
 {
-	GetCurrentCharacter()->ZoomCamera(true);
+	if (HUDWidget->bInGameMode)
+		GetCurrentCharacter()->ZoomCamera(true);
 }
 
 void ARobbinPlayerController::OnSetZoomOutTriggered()
 {
-	GetCurrentCharacter()->ZoomCamera(false);
+	if (HUDWidget->bInGameMode)
+		GetCurrentCharacter()->ZoomCamera(false);
 }
 
 

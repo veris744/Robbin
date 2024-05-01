@@ -33,6 +33,7 @@ void UMainUserWidget::NativeConstruct()
 	SetGameMode();
 	SetAbilityButtonColor(0);
 
+	SuspicionLevel->SetPercent(0);
 }
 
 
@@ -94,6 +95,11 @@ void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 		Ability7Button->SetBackgroundColor(SelectedColor);
 }
 
+void UMainUserWidget::SetSuspicionLevelBar(float Percentage)
+{
+	SuspicionLevel->SetPercent(Percentage/100);
+}
+
 void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
 {
 	if (!actor)	return;
@@ -127,6 +133,8 @@ void UMainUserWidget::SetGameMode()
 		PlayerController->SetInputMode(inputMode);
 	}
 
+	bInGameMode = true;
+
 	TechCharacterButton->SetVisibility(ESlateVisibility::Visible);
 	SpyCharacterButton->SetVisibility(ESlateVisibility::Visible);
 	ScamCharacterButton->SetVisibility(ESlateVisibility::Visible);
@@ -146,6 +154,8 @@ void UMainUserWidget::SetGameMode()
 
 void UMainUserWidget::SetCameraMode()
 {
+	bInGameMode = false;
+
 	TechCharacterButton->SetVisibility(ESlateVisibility::Hidden);
 	SpyCharacterButton->SetVisibility(ESlateVisibility::Hidden);
 	ScamCharacterButton->SetVisibility(ESlateVisibility::Hidden);

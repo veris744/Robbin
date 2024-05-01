@@ -8,6 +8,7 @@
 
 class AInteractiveActor;
 class UStaticAbilities;
+class UMainUserWidget;
 
 UENUM()
 enum class CharacterType
@@ -78,14 +79,36 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 
 
+	///////////////////////////////////////////////////
+	////////////////// PROPERTIES /////////////////////
+	///////////////////////////////////////////////////
+
+	UPROPERTY()
+		UMainUserWidget* HUDWidget;
+
+	UPROPERTY()
+		CharacterType Type;
+
+	UPROPERTY()
+		float SuspicionLevel = 0;
+
+
+	///////////////////////////////////////////////////
+	///////////////// ABILITIES ///////////////////////
+	///////////////////////////////////////////////////
+
+
 	UFUNCTION()
-		void ExecuteAbility(UAbility* ability, AInteractiveActor* InteractiveActor = nullptr);
+		void ExecuteAbility(UAbility* ability = nullptr, AInteractiveActor* InteractiveActor = nullptr);
 
 	UPROPERTY()
 		TArray<FString> Abilities;
 
-	UPROPERTY()
-		CharacterType Type;
+
+
+	///////////////////////////////////////////////////
+	/////////////////// CAMERA ////////////////////////
+	///////////////////////////////////////////////////
 
 
 	void RotateCamera(bool bIsRight);
@@ -121,6 +144,32 @@ protected:
 
 
 private:
+
+	///////////////////////////////////////////////////
+	//////////////// DEFAULT VALUES ///////////////////
+	///////////////////////////////////////////////////
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+	float CameraRotationSpeed = 0.8f;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+	float CameraZoomSpeed = 10.f;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+	float MinArmLength = 300;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+	float MaxArmLength = 1000;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+		float MaxSuspicionLevel = 100;
+	
+
+
+	///////////////////////////////////////////////////
+	/////////////////// INTERNAL //////////////////////
+	///////////////////////////////////////////////////
+
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UCameraComponent* TopDownCameraComponent;
@@ -129,15 +178,6 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class USpringArmComponent* CameraBoom;
 
-	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
-	float CameraRotationSpeed = 0.8f;
-	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
-	float CameraZoomSpeed = 10.f;
-	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
-	float MinArmLength = 300;
-	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
-	float MaxArmLength = 1000;
-	
 	UPROPERTY(VisibleAnywhere)
 	class UAIPerceptionStimuliSourceComponent* StimulusSource;
 
@@ -150,4 +190,5 @@ private:
 
 	UPROPERTY()
 	UStaticAbilities* AbilitiesManager;
+
 };
