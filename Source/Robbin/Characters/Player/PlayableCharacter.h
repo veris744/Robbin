@@ -87,6 +87,10 @@ public:
 	UPROPERTY()
 		CharacterType Type;
 
+
+	void RotateCamera(bool bIsRight);
+	void ZoomCamera(bool bIsIn);
+
 protected:
 
 	///////////////////////////////////////////////////
@@ -114,6 +118,8 @@ protected:
 	UFUNCTION()
 		virtual void DoAbility7() {};
 
+
+
 private:
 	/** Top down camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -122,9 +128,18 @@ private:
 	/** Camera boom positioning the camera above the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class USpringArmComponent* CameraBoom;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+	float CameraRotationSpeed = 0.8f;
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+	float CameraZoomSpeed = 10.f;
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+	float MinArmLength = 300;
+	UPROPERTY(EditAnywhere, Category = "Robbing|Default Values")
+	float MaxArmLength = 1000;
 	
-		UPROPERTY(VisibleAnywhere)
-		class UAIPerceptionStimuliSourceComponent* StimulusSource;
+	UPROPERTY(VisibleAnywhere)
+	class UAIPerceptionStimuliSourceComponent* StimulusSource;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

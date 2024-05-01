@@ -101,6 +101,21 @@ void APlayableCharacter::ExecuteAbility(UAbility* ability, AInteractiveActor* In
 
 }
 
+void APlayableCharacter::RotateCamera(bool bIsRight)
+{
+	float rotation = bIsRight ? -CameraRotationSpeed : CameraRotationSpeed;
+	CameraBoom->AddRelativeRotation(FRotator(0, rotation, 0));
+}
+
+void APlayableCharacter::ZoomCamera(bool bIsIn)
+{
+	float zoom = bIsIn ? -CameraZoomSpeed : CameraZoomSpeed;
+	CameraBoom->TargetArmLength += zoom;
+
+	if (CameraBoom->TargetArmLength > MaxArmLength)	CameraBoom->TargetArmLength = MaxArmLength;
+	else if (CameraBoom->TargetArmLength < MinArmLength) CameraBoom->TargetArmLength = MinArmLength;
+}
+
 // Called to bind functionality to input
 void APlayableCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {

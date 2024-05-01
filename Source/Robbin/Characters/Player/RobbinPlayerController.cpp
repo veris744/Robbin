@@ -94,6 +94,18 @@ void ARobbinPlayerController::BeginPlay()
 		Possess(ScamCharacter);
 }
 
+APlayableCharacter* ARobbinPlayerController::GetCurrentCharacter()
+{
+	if (CurrentType == CharacterType::TECH)
+		return TechCharacter;
+	else if (CurrentType == CharacterType::SPY)
+		return SpyCharacter;
+	else if (CurrentType == CharacterType::SCAMMER)
+		return ScamCharacter;
+
+	return nullptr;
+}
+
 void ARobbinPlayerController::SetupInputComponent()
 {
 	// set up gameplay key bindings
@@ -107,7 +119,11 @@ void ARobbinPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnSetDestinationTriggered);
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Completed, this, &ARobbinPlayerController::OnSetDestinationReleased);
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Canceled, this, &ARobbinPlayerController::OnSetDestinationReleased);
-
+		
+		EnhancedInputComponent->BindAction(RotateRAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnSetRotateRTriggered);
+		EnhancedInputComponent->BindAction(RotateLAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnSetRotateLTriggered);
+		EnhancedInputComponent->BindAction(ZoomInAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnSetZoomInTriggered);
+		EnhancedInputComponent->BindAction(ZoomOutAction, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnSetZoomOutTriggered);
 
 		EnhancedInputComponent->BindAction(StartAbility1Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility1);
 		EnhancedInputComponent->BindAction(StartAbility2Action, ETriggerEvent::Triggered, this, &ARobbinPlayerController::OnUseUAbility2);
@@ -206,6 +222,27 @@ void ARobbinPlayerController::OnSetDestinationReleased()
 		HUDWidget->SetAbilityButtonColor(0);
 	}
 }
+
+void ARobbinPlayerController::OnSetRotateRTriggered()
+{
+	GetCurrentCharacter()->RotateCamera(true);
+}
+
+void ARobbinPlayerController::OnSetRotateLTriggered()
+{
+	GetCurrentCharacter()->RotateCamera(false);
+}
+
+void ARobbinPlayerController::OnSetZoomInTriggered()
+{
+	GetCurrentCharacter()->ZoomCamera(true);
+}
+
+void ARobbinPlayerController::OnSetZoomOutTriggered()
+{
+	GetCurrentCharacter()->ZoomCamera(false);
+}
+
 
 void ARobbinPlayerController::OnUseUAbility1()
 {

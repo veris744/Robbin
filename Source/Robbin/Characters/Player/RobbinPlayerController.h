@@ -87,9 +87,23 @@ public:
 	///////////// MOVEMENT INPUT ACTION ///////////////
 	///////////////////////////////////////////////////
 
-	/** Jump Input Action */
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Movement", meta = (AllowPrivateAccess = "true"))
 		UInputAction* SetDestinationClickAction;
+
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Movement", meta = (AllowPrivateAccess = "true"))
+		UInputAction* RotateRAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Movement", meta = (AllowPrivateAccess = "true"))
+		UInputAction* RotateLAction;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Movement", meta = (AllowPrivateAccess = "true"))
+		UInputAction* ZoomInAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input|Movement", meta = (AllowPrivateAccess = "true"))
+		UInputAction* ZoomOutAction;
 
 
 
@@ -116,6 +130,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Characters")
 		CharacterType CurrentType;
+
+	UFUNCTION()
+		APlayableCharacter* GetCurrentCharacter();
 
 
 	///////////////////////////////////////////////////
@@ -147,6 +164,11 @@ protected:
 	void OnInputStarted();
 	void OnSetDestinationTriggered();
 	void OnSetDestinationReleased();
+
+	void OnSetRotateRTriggered();
+	void OnSetRotateLTriggered();
+	void OnSetZoomInTriggered();
+	void OnSetZoomOutTriggered();
 
 public:
 	void OnUseUAbility1();
