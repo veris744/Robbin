@@ -26,6 +26,6 @@ public:
 		TArray<ATechDoor*> DoorsToOpen;
 
 	void OpenCloseDoors();
-	void DestroyDoors();
-	void ActionWithoutUAbility();
+
+
 };

@@ -9,6 +9,8 @@
 
 
 class UButton;
+class UBorder;
+class UTextBlock;
 class UListView;
 class ARobbinPlayerController;
 
@@ -111,6 +113,25 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 		UButton* ExitCameraButton;
+
+
+	///////////////////////////////////////////////////
+	///////////////// TOOLTIP /////////////////////////
+	///////////////////////////////////////////////////
+
+	UPROPERTY(meta = (BindWidget))
+	UBorder* TTBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* TTText;
+
+	void ShowTT(FVector2D MousePos, FString Text);
+
+	void HideTT();
+
+	bool IsTTShown();
+
+	void UpdateTTPosition(FVector2D MousePos);
 
 
 	///////////////////////////////////////////////////

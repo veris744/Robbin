@@ -17,9 +17,7 @@ AInteractiveActor::AInteractiveActor()
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	MeshComponent->SetupAttachment(RootComponent);
-	MeshComponent->OnBeginCursorOver.AddDynamic(this, &AInteractiveActor::OnBeginMouseOver);
-	MeshComponent->OnEndCursorOver.AddDynamic(this, &AInteractiveActor::OnEndMouseOver);
-
+	MeshComponent->SetCollisionResponseToChannel(ECC_EngineTraceChannel1, ECR_Block);
 }
 
 // Called when the game starts or when spawned
@@ -28,15 +26,6 @@ void AInteractiveActor::BeginPlay()
 	Super::BeginPlay();
 }
 
-void AInteractiveActor::OnBeginMouseOver(UPrimitiveComponent* TouchedComponent)
-{
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("Mouse Begin"));
-}
-
-void AInteractiveActor::OnEndMouseOver(UPrimitiveComponent* TouchedComponent)
-{
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Cyan, TEXT("Mouse End"));
-}
 
 void AInteractiveActor::Hovering()
 {

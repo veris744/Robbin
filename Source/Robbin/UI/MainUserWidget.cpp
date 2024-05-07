@@ -5,6 +5,8 @@
 #include "Robbin/Characters/Player/RobbinPlayerController.h"
 #include "Robbin/InteractiveActors/InteractiveActor.h"
 #include <Components/Button.h>
+#include <Components/Border.h>
+#include <Components/TextBlock.h>
 #include "Components/ListView.h"
 #include <Robbin/Abilities/StaticAbilities.h>
 #include "MenuItem.h"
@@ -34,8 +36,36 @@ void UMainUserWidget::NativeConstruct()
 	SetAbilityButtonColor(0);
 
 	SuspicionLevel->SetPercent(0);
+
+	TTBorder->SetVisibility(ESlateVisibility::Hidden);
+	TTText->SetText(FText::FromString(""));
 }
 
+
+void UMainUserWidget::ShowTT(FVector2D MousePos, FString Text)
+{
+	TTText->SetText(FText::FromString(Text));
+	UpdateTTPosition(MousePos);
+	TTBorder->SetVisibility(ESlateVisibility::Visible);
+}
+
+void UMainUserWidget::HideTT()
+{
+	TTBorder->SetVisibility(ESlateVisibility::Hidden);
+}
+
+bool UMainUserWidget::IsTTShown()
+{
+	if (TTBorder->GetVisibility() == ESlateVisibility::Visible)
+		return true;
+
+	return false;
+}
+
+void UMainUserWidget::UpdateTTPosition(FVector2D MousePos)
+{
+	TTBorder->SetRenderTranslation(MousePos);
+}
 
 void UMainUserWidget::setCharacterColor(CharacterType CurrentCharacterType)
 {
