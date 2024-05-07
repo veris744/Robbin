@@ -41,6 +41,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
 	
+
+	// Called every frame.
+	virtual void Tick(float DeltaSeconds) override;
 	
 	///////////////////////////////////////////////////
 	//////////// ABILITY INPUT ACTIONS ////////////////

@@ -5,6 +5,8 @@
 
 ABasicDoor::ABasicDoor()
 {
+	DisplayName = "Basic Door";
+
 	auto Action1 = [this]()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("thing1"));

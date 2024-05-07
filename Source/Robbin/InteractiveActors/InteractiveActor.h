@@ -30,11 +30,6 @@ protected:
 	/////////////// MOUSE INTERACTION /////////////////
 	///////////////////////////////////////////////////
 
-	UFUNCTION()
-		void OnBeginMouseOver(UPrimitiveComponent* TouchedComponent);
-
-	UFUNCTION()
-		void OnEndMouseOver(UPrimitiveComponent* TouchedComponent);
 
 	UFUNCTION()
 		virtual void Hovering();
@@ -61,6 +56,10 @@ public:
 	///////////////////////////////////////////////////
 	//////////// INTERACTIVE PROPERTIES ///////////////
 	///////////////////////////////////////////////////
+
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
+		FString DisplayName = "Interactive";
 
 	UPROPERTY(EditAnywhere, Category = "Robbing|Interaction")
 		bool bIsUsable = true;

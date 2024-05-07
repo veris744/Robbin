@@ -38,6 +38,36 @@ ARobbinPlayerController::ARobbinPlayerController()
 
 }
 
+void ARobbinPlayerController::Tick(float DeltaSeconds)
+{
+	FHitResult Hit;
+	bool bActorIsHit = GetHitResultUnderCursor(ECC_EngineTraceChannel1, false, Hit);
+
+	if (!HUDWidget->IsTTShown() && bActorIsHit)
+	{
+		FVector2D Mouse2D;
+		GetMousePosition(Mouse2D.X, Mouse2D.Y);
+
+		AInteractiveActor* Actor = Cast<AInteractiveActor>(Hit.GetActor());
+		HUDWidget->ShowTT(Mouse2D, Actor->DisplayName);
+	}
+	else if (HUDWidget->IsTTShown() && !bActorIsHit)
+	{
+		HUDWidget->HideTT();
+
+		/*if (bActorIsHit)
+		{
+			FVector2D Mouse2D;
+			GetMousePosition(Mouse2D.X, Mouse2D.Y);
+			HUDWidget->UpdateTTPosition(Mouse2D);
+		}
+		else
+		{
+			HUDWidget->HideTT();
+		}*/
+	}
+}
+
 void ARobbinPlayerController::BeginPlay()
 {
 	// Call the base class  

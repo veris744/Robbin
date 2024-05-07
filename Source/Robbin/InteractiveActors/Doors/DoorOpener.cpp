@@ -6,6 +6,9 @@
 
 ADoorOpener::ADoorOpener()
 {
+
+	DisplayName = "Door Opener";
+
 	auto OpenCloseLambda = [this]()
 	{
 		OpenCloseDoors();
