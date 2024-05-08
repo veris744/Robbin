@@ -35,4 +35,6 @@ protected:
 	virtual void DoAbility6() override;
 
 	virtual void DoAbility7() override;
+
+	bool bIsVisionActivated = false;
 };
