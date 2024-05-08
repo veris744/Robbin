@@ -2,10 +2,20 @@
 
 
 #include "SpyCharacter.h"
+#include <Kismet/GameplayStatics.h>
+#include <Robbin/Characters/AI/NPCs/GenericNPC.h>
 
 void ASpyCharacter::DoAbility1()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Spy Ability1"));
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AGenericNPC::StaticClass(), FoundActors);
+
+	for (AActor* a : FoundActors)
+	{
+		AGenericNPC* npc = Cast<AGenericNPC>(a);
+		npc->ShowVisionCone(!bIsVisionActivated);
+	}
+	bIsVisionActivated = !bIsVisionActivated;
 }
 
 void ASpyCharacter::DoAbility2()

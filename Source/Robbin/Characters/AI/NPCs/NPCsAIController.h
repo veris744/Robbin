@@ -36,6 +36,8 @@ private:
 		UPROPERTY()
 		UAIPerceptionComponent* PerceptionComp;
 
+
+
 protected:
 	UPROPERTY(VisibleAnywhere, Category = "Robbin | AI")
 		UBlackboardData* BlackboardData;
@@ -53,6 +55,12 @@ public:
 	explicit ANPCsAIController(FObjectInitializer const& ObjectInitializer);
 
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere)
+		float SightRadius = 500.f;
+
+	UPROPERTY(EditAnywhere)
+		float PeripheralVisionAngleDegrees = 90.f;
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

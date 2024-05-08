@@ -18,11 +18,23 @@ class ROBBIN_API AGenericNPC : public AGenericCharacter
 	GENERATED_BODY()
 	
 public:
+	AGenericNPC();
+
+	virtual void BeginPlay() override;
+
+	//virtual void Tick(float DeltaSeconds) override;
+
+	UPROPERTY(VisibleAnywhere, Category = "Robbing|Vision")
+		UStaticMeshComponent* VisionMeshComponent;
+
+
 	UPROPERTY(EditDefaultsOnly, Category = "Robbin | General")
 		UBehaviorTree* EnemyBehaviorTree;
 		
 	UPROPERTY()
-		UBlackboardComponent* pMyBlackboardComponent;
+	UBlackboardComponent* pMyBlackboardComponent;
 
-		UBehaviorTree* GetBehaviourTree() const;
+	UBehaviorTree* GetBehaviourTree() const;
+
+	void ShowVisionCone(bool bShow);
 };
