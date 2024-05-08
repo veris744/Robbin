@@ -40,4 +40,6 @@ public:
 	AbilityNumber AbilityNo = AbilityNumber::NONE;
 
 	bool bNeedInteractuable = false;
+
+	float SuspicionLevel = 1;
 };

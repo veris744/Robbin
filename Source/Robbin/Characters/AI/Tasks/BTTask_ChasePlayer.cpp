@@ -2,7 +2,7 @@
 
 
 #include "BTTask_ChasePlayer.h"
-#include "Robbin/Characters/NPCs/NPCsAIController.h"
+#include "Robbin/Characters/AI/NPCs/NPCsAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 

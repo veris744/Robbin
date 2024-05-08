@@ -4,7 +4,7 @@
 #include "BTTask_FindRandomLocation.h"
 #include "NavigationSystem.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "Robbin/Characters/NPCs/NPCsAIController.h"
+#include "Robbin/Characters/AI/NPCs/NPCsAIController.h"
 
 UBTTask_FindRandomLocation::UBTTask_FindRandomLocation(FObjectInitializer const& ObjectInitializer)
 {
