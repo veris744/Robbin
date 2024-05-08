@@ -6,6 +6,8 @@
 #include "PlayableCharacter.h"
 #include "ScammerCharacter.generated.h"
 
+class ASuspiciousBag;
+
 /**
  * 
  */
@@ -20,6 +22,16 @@ public:
 		Type = CharacterType::SCAMMER;
 	}
 	
+	UPROPERTY()
+		ASuspiciousBag* SuspiciousBag = nullptr;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbing|Abilities", meta = (DisplayName = "Bag Class"))
+		TSubclassOf<class ASuspiciousBag> BagClass;
+
+	UPROPERTY(EditAnywhere, Category = "Robbing|Abilities")
+		float LeaveBagRange = 500;
+
 protected:
 
 	virtual void DoAbility1() override;

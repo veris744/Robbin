@@ -2,9 +2,35 @@
 
 
 #include "ScammerCharacter.h"
+#include <Robbin/InteractiveActors/Scammer/SuspiciousBag.h>
 
 void AScammerCharacter::DoAbility1()
 {
+	if (!SuspiciousBag)
+	{
+		FHitResult Hit;
+		bool bActorIsHit = GetWorld()->GetFirstPlayerController()->GetHitResultUnderCursor(ECC_Camera, false, Hit);
+
+		if (bActorIsHit && !Hit.GetActor()->GetClass()->IsChildOf(APlayableCharacter::StaticClass())
+			&& !Hit.GetActor()->GetClass()->IsChildOf(AInteractiveActor::StaticClass()))
+		{
+			FVector Location = Hit.Location;
+
+			if (FVector::DistSquared(Location, GetActorLocation()) <= LeaveBagRange * LeaveBagRange)
+			{
+				FActorSpawnParameters SpawnInfo;
+				SuspiciousBag = GetWorld()->SpawnActor<ASuspiciousBag>(BagClass,
+					Location, FRotator(), SpawnInfo);
+
+				SuspiciousBag->Character = this;
+			}
+		}
+	}
+	else
+	{
+		//do npc shit
+	}
+	
 	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Scammer Ability1"));
 }
 
