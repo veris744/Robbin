@@ -11,6 +11,7 @@
 #include <Robbin/Abilities/StaticAbilities.h>
 #include "MenuItem.h"
 #include "CommonTextBlock.h"
+#include "AbilityButton.h"
 
 void UMainUserWidget::NativeConstruct()
 {
@@ -20,19 +21,6 @@ void UMainUserWidget::NativeConstruct()
 	TechCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedTech);
 	SpyCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedSpy);
 	ScamCharacterButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedScam);
-
-
-	Ability1Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA1);
-	Ability2Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA2);
-	Ability3Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA3);
-	Ability4Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA4);
-	Ability5Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA5);
-	Ability6Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA6);
-	Ability7Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA7);
-
-
-	Ability1Button->OnHovered.AddDynamic(this, &UMainUserWidget::OnHoveredA1);
-	Ability1Button->OnUnhovered.AddDynamic(this, &UMainUserWidget::OnUnhoveredA1);
 
 	ExitCameraButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnExitCamera);
 
@@ -46,6 +34,24 @@ void UMainUserWidget::NativeConstruct()
 
 	DescriptionBorder->SetVisibility(ESlateVisibility::Hidden);
 	AbilityDescriptionText->SetText(FText::FromString("Lorem ipsum dolor sit amet consectetur adipiscing, elit commodo lobortis facilisi dapibus placerat euismod, lacinia vivamus vestibulum taciti aliquam. Nam nunc massa ad rutrum tortor dui non, quam diam velit taciti convallis vivamus, dictumst conubia porttitor pellentesque enim phasellus. Placerat montes nibh arcu molestie dignissim velit integer urna, vel conubia laoreet ullamcorper pretium sodales magnis luctus, ridiculus porttitor sed fringilla eu iaculis volutpat."));
+	
+
+	//Setup Ability Buttons
+	Ability1Button->HUDWidget = this;
+	Ability2Button->HUDWidget = this;
+	Ability3Button->HUDWidget = this;
+	Ability4Button->HUDWidget = this;
+	Ability5Button->HUDWidget = this;
+	Ability6Button->HUDWidget = this;
+	Ability7Button->HUDWidget = this;
+
+	Ability1Button->ButtonText->SetText(FText::FromString("1"));
+	Ability2Button->ButtonText->SetText(FText::FromString("2"));
+	Ability3Button->ButtonText->SetText(FText::FromString("3"));
+	Ability4Button->ButtonText->SetText(FText::FromString("4"));
+	Ability5Button->ButtonText->SetText(FText::FromString("5"));
+	Ability6Button->ButtonText->SetText(FText::FromString("6"));
+	Ability7Button->ButtonText->SetText(FText::FromString("7"));
 }
 
 
@@ -150,30 +156,66 @@ void UMainUserWidget::setCharacterColor(CharacterType CurrentCharacterType)
 
 void UMainUserWidget::SetAbilityButtonColor(int nAbility)
 {
-	Ability1Button->SetBackgroundColor(NonSelectedColor);
-	Ability2Button->SetBackgroundColor(NonSelectedColor);
-	Ability3Button->SetBackgroundColor(NonSelectedColor);
-	Ability4Button->SetBackgroundColor(NonSelectedColor);
-	Ability5Button->SetBackgroundColor(NonSelectedColor);
-	Ability6Button->SetBackgroundColor(NonSelectedColor);
-	Ability7Button->SetBackgroundColor(NonSelectedColor);
+	Ability1Button->SetButtonColor(NonSelectedColor);
+	Ability2Button->SetButtonColor(NonSelectedColor);
+	Ability3Button->SetButtonColor(NonSelectedColor);
+	Ability4Button->SetButtonColor(NonSelectedColor);
+	Ability5Button->SetButtonColor(NonSelectedColor);
+	Ability6Button->SetButtonColor(NonSelectedColor);
+	Ability7Button->SetButtonColor(NonSelectedColor);
 
 	if (nAbility == 0)	return;
 
 	if (nAbility == 1)
-		Ability1Button->SetBackgroundColor(SelectedColor);
+		Ability1Button->SetButtonColor(SelectedColor);
 	else if (nAbility == 2)
-		Ability2Button->SetBackgroundColor(SelectedColor);
+		Ability2Button->SetButtonColor(SelectedColor);
 	else if (nAbility == 3)
-		Ability3Button->SetBackgroundColor(SelectedColor);
+		Ability3Button->SetButtonColor(SelectedColor);
 	else if (nAbility == 4)
-		Ability4Button->SetBackgroundColor(SelectedColor);
+		Ability4Button->SetButtonColor(SelectedColor);
 	else if (nAbility == 5)
-		Ability5Button->SetBackgroundColor(SelectedColor);
+		Ability5Button->SetButtonColor(SelectedColor);
 	else if (nAbility == 6)
-		Ability6Button->SetBackgroundColor(SelectedColor);
+		Ability6Button->SetButtonColor(SelectedColor);
 	else if (nAbility == 7)
-		Ability7Button->SetBackgroundColor(SelectedColor);
+		Ability7Button->SetButtonColor(SelectedColor);
+}
+
+void UMainUserWidget::SetButtonsAbilities()
+{
+	if (PlayerController->CurrentType == CharacterType::TECH)
+	{
+		Ability1Button->Ability = PlayerController->AbilitiesManager->GetFromId("TECH1");
+		Ability2Button->Ability = PlayerController->AbilitiesManager->GetFromId("TECH2");
+		Ability3Button->Ability = PlayerController->AbilitiesManager->GetFromId("TECH3");
+		Ability4Button->Ability = PlayerController->AbilitiesManager->GetFromId("TECH4");
+		Ability5Button->Ability = PlayerController->AbilitiesManager->GetFromId("TECH5");
+		Ability6Button->Ability = PlayerController->AbilitiesManager->GetFromId("TECH6");
+		Ability7Button->Ability = PlayerController->AbilitiesManager->GetFromId("TECH7");
+	}
+
+	if (PlayerController->CurrentType == CharacterType::SPY)
+	{
+		Ability1Button->Ability = PlayerController->AbilitiesManager->GetFromId("SPY1");
+		Ability2Button->Ability = PlayerController->AbilitiesManager->GetFromId("SPY2");
+		Ability3Button->Ability = PlayerController->AbilitiesManager->GetFromId("SPY3");
+		Ability4Button->Ability = PlayerController->AbilitiesManager->GetFromId("SPY4");
+		Ability5Button->Ability = PlayerController->AbilitiesManager->GetFromId("SPY5");
+		Ability6Button->Ability = PlayerController->AbilitiesManager->GetFromId("SPY6");
+		Ability7Button->Ability = PlayerController->AbilitiesManager->GetFromId("SPY7");
+	}
+
+	if (PlayerController->CurrentType == CharacterType::SCAMMER)
+	{
+		Ability1Button->Ability = PlayerController->AbilitiesManager->GetFromId("SCAM1");
+		Ability2Button->Ability = PlayerController->AbilitiesManager->GetFromId("SCAM2");
+		Ability3Button->Ability = PlayerController->AbilitiesManager->GetFromId("SCAM3");
+		Ability4Button->Ability = PlayerController->AbilitiesManager->GetFromId("SCAM4");
+		Ability5Button->Ability = PlayerController->AbilitiesManager->GetFromId("SCAM5");
+		Ability6Button->Ability = PlayerController->AbilitiesManager->GetFromId("SCAM6");
+		Ability7Button->Ability = PlayerController->AbilitiesManager->GetFromId("SCAM7");
+	}
 }
 
 void UMainUserWidget::SetSuspicionLevelBar(float Percentage)
@@ -275,85 +317,6 @@ void UMainUserWidget::OnClickedScam()
 	{
 		PlayerController->OnChangeCharacterScam();
 	}
-}
-
-void UMainUserWidget::OnClickedA1()
-{
-	if (PlayerController)
-	{
-		PlayerController->OnUseUAbility1();
-	}
-}
-
-void UMainUserWidget::OnClickedA2()
-{
-	if (PlayerController)
-	{
-		PlayerController->OnUseUAbility2();
-	}
-}
-
-void UMainUserWidget::OnClickedA3()
-{
-	if (PlayerController)
-	{
-		PlayerController->OnUseUAbility3();
-	}
-}
-
-void UMainUserWidget::OnClickedA4()
-{
-	if (PlayerController)
-	{
-		PlayerController->OnUseUAbility4();
-	}
-}
-
-void UMainUserWidget::OnClickedA5()
-{
-	if (PlayerController)
-	{
-		PlayerController->OnUseUAbility5();
-	}
-}
-
-void UMainUserWidget::OnClickedA6()
-{
-	if (PlayerController)
-	{
-		PlayerController->OnUseUAbility6();
-	}
-}
-
-void UMainUserWidget::OnClickedA7()
-{
-	if (PlayerController)
-	{
-		PlayerController->OnUseUAbility7();
-	}
-}
-
-void UMainUserWidget::OnHoveredA1()
-{
-	FString desc = "";
-	if (PlayerController->CurrentType == CharacterType::TECH)
-	{
-		desc += PlayerController->AbilitiesManager->GetFromId("TECH1")->Description;
-	}
-	else if (PlayerController->CurrentType == CharacterType::SPY)
-	{
-		desc += PlayerController->AbilitiesManager->GetFromId("SPY1")->Description;
-	}
-	else if (PlayerController->CurrentType == CharacterType::SCAMMER)
-	{
-		desc += PlayerController->AbilitiesManager->GetFromId("SCAM1")->Description;
-	}
-	ShowAbilityDescription(true, desc); 
-}
-
-void UMainUserWidget::OnUnhoveredA1()
-{
-	ShowAbilityDescription(false);
 }
 
 void UMainUserWidget::OnExitCamera()
