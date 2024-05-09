@@ -5,6 +5,7 @@
 #include "Ability.h"
 #include <Robbin/Characters/Player/PlayableCharacter.h>
 
+//UStaticAbilities* UStaticAbilities::Instance = nullptr;
 
 void UStaticAbilities::init()
 {
@@ -13,7 +14,7 @@ void UStaticAbilities::init()
 	///////////////////////////////////////////////////////////////////////////////
 	UAbility* Ability = NewObject<UAbility>();
 	Ability->DisplayName = "Open/Close Door";
-	Ability->Description = "Open/Close Door";
+	Ability->Description = "Opens or closes the doors associated with the door opener object.";
 	Ability->AbilityNo = AbilityNumber::ABILITY1;
 	Ability->ID = "TECH1";
 	Ability->bNeedInteractuable = true;
@@ -72,8 +73,8 @@ void UStaticAbilities::init()
 	//SPY /////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////
 	UAbility* SpyAbility = NewObject<UAbility>();
-	SpyAbility->DisplayName = "Open/Close Door";
-	SpyAbility->Description = "Open/Close Door";
+	SpyAbility->DisplayName = "Visibility";
+	SpyAbility->Description = "Makes the vision cones visible";
 	SpyAbility->AbilityNo = AbilityNumber::ABILITY1;
 	SpyAbility->ID = "SPY1";
 	SpyAbility->bNeedInteractuable = true;
@@ -133,8 +134,8 @@ void UStaticAbilities::init()
 	///////////////////////////////////////////////////////////////////////////////
 
 	UAbility* ScamAbility = NewObject<UAbility>();
-	ScamAbility->DisplayName = "Open/Close Door";
-	ScamAbility->Description = "Open/Close Door";
+	ScamAbility->DisplayName = "Bag";
+	ScamAbility->Description = "Leaves suspicious bag wherever the mouse is pointing at";
 	ScamAbility->AbilityNo = AbilityNumber::ABILITY1;
 	ScamAbility->ID = "SCAM1";
 	ScamAbility->bNeedInteractuable = true;

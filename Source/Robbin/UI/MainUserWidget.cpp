@@ -10,7 +10,7 @@
 #include "Components/ListView.h"
 #include <Robbin/Abilities/StaticAbilities.h>
 #include "MenuItem.h"
-
+#include "CommonTextBlock.h"
 
 void UMainUserWidget::NativeConstruct()
 {
@@ -30,6 +30,10 @@ void UMainUserWidget::NativeConstruct()
 	Ability6Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA6);
 	Ability7Button->OnClicked.AddDynamic(this, &UMainUserWidget::OnClickedA7);
 
+
+	Ability1Button->OnHovered.AddDynamic(this, &UMainUserWidget::OnHoveredA1);
+	Ability1Button->OnUnhovered.AddDynamic(this, &UMainUserWidget::OnUnhoveredA1);
+
 	ExitCameraButton->OnClicked.AddDynamic(this, &UMainUserWidget::OnExitCamera);
 
 	SetGameMode();
@@ -39,19 +43,24 @@ void UMainUserWidget::NativeConstruct()
 
 	TTBorder->SetVisibility(ESlateVisibility::Hidden);
 	TTText->SetText(FText::FromString(""));
+
+	DescriptionBorder->SetVisibility(ESlateVisibility::Hidden);
+	AbilityDescriptionText->SetText(FText::FromString("Lorem ipsum dolor sit amet consectetur adipiscing, elit commodo lobortis facilisi dapibus placerat euismod, lacinia vivamus vestibulum taciti aliquam. Nam nunc massa ad rutrum tortor dui non, quam diam velit taciti convallis vivamus, dictumst conubia porttitor pellentesque enim phasellus. Placerat montes nibh arcu molestie dignissim velit integer urna, vel conubia laoreet ullamcorper pretium sodales magnis luctus, ridiculus porttitor sed fringilla eu iaculis volutpat."));
 }
 
 
-void UMainUserWidget::ShowTT(FVector2D MousePos, FString Text)
+void UMainUserWidget::ShowTT(bool bShow, FString Text)
 {
-	TTText->SetText(FText::FromString(Text));
-	UpdateTTPosition(MousePos);
-	TTBorder->SetVisibility(ESlateVisibility::Visible);
-}
-
-void UMainUserWidget::HideTT()
-{
-	TTBorder->SetVisibility(ESlateVisibility::Hidden);
+	if (bShow)
+	{
+		TTText->SetText(FText::FromString(Text));
+		UpdateWidgetPosition(TTBorder);
+		TTBorder->SetVisibility(ESlateVisibility::Visible);
+	}
+	else
+	{
+		TTBorder->SetVisibility(ESlateVisibility::Hidden);
+	}
 }
 
 bool UMainUserWidget::IsTTShown()
@@ -62,9 +71,51 @@ bool UMainUserWidget::IsTTShown()
 	return false;
 }
 
-void UMainUserWidget::UpdateTTPosition(FVector2D MousePos)
+void UMainUserWidget::UpdateWidgetPosition(UWidget* Widget)
 {
-	TTBorder->SetRenderTranslation(MousePos);
+	FVector2D Mouse2D;
+	PlayerController->GetMousePosition(Mouse2D.X, Mouse2D.Y);
+
+	int x, y;
+	PlayerController->GetViewportSize(x, y);
+	FVector2D vp = FVector2D(x, y);
+
+	FVector2D res;
+	res.X = 1920;
+	res.Y = 1080;
+
+	FVector2D fin = Mouse2D * res / vp - (res / 2);
+
+	if (fin.X > 0)
+	{
+		fin.X -= Widget->GetDesiredSize().X;
+	}
+
+	if (fin.Y > 0)
+	{
+		fin.Y -= Widget->GetDesiredSize().Y;
+	}
+	else
+	{
+		fin.Y += Widget->GetDesiredSize().Y / 4;
+	}
+
+	Widget->SetRenderTranslation(fin);
+
+}
+
+void UMainUserWidget::ShowAbilityDescription(bool bShow, FString Text)
+{
+	if (bShow)
+	{
+		AbilityDescriptionText->SetText(FText::FromString(Text));
+		UpdateWidgetPosition(DescriptionBorder);
+		DescriptionBorder->SetVisibility(ESlateVisibility::Visible);
+	}
+	else
+	{
+		DescriptionBorder->SetVisibility(ESlateVisibility::Hidden);
+	}
 }
 
 void UMainUserWidget::setCharacterColor(CharacterType CurrentCharacterType)
@@ -280,6 +331,29 @@ void UMainUserWidget::OnClickedA7()
 	{
 		PlayerController->OnUseUAbility7();
 	}
+}
+
+void UMainUserWidget::OnHoveredA1()
+{
+	FString desc = "";
+	if (PlayerController->CurrentType == CharacterType::TECH)
+	{
+		desc += PlayerController->AbilitiesManager->GetFromId("TECH1")->Description;
+	}
+	else if (PlayerController->CurrentType == CharacterType::SPY)
+	{
+		desc += PlayerController->AbilitiesManager->GetFromId("SPY1")->Description;
+	}
+	else if (PlayerController->CurrentType == CharacterType::SCAMMER)
+	{
+		desc += PlayerController->AbilitiesManager->GetFromId("SCAM1")->Description;
+	}
+	ShowAbilityDescription(true, desc); 
+}
+
+void UMainUserWidget::OnUnhoveredA1()
+{
+	ShowAbilityDescription(false);
 }
 
 void UMainUserWidget::OnExitCamera()

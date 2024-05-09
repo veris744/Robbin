@@ -29,6 +29,9 @@ class ARobbinPlayerController : public APlayerController
 public:
 	ARobbinPlayerController();
 
+	UPROPERTY()
+		UStaticAbilities* AbilitiesManager;
+
 	/** Time Threshold to know if it was a short press */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	float ShortPressThreshold;
@@ -201,8 +204,6 @@ private:
 	AActor* DestinationActor;
 
 
-	UPROPERTY()
-	UStaticAbilities* AbilitiesManager;
 
 	FString FindAbilityId(CharacterType Type, int num);
 };
