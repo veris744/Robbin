@@ -52,27 +52,20 @@ void UAbilityButton::OnClicked()
 
 void UAbilityButton::OnHovered()
 {
-	FString desc = Ability->Description;
-	ShowAbilityDescription(true, desc);
+	GetWorld()->GetTimerManager().SetTimer(HoverTimerHandle, this, &UAbilityButton::ShowAbilityDescription, 2.f, false);
 }
 
 void UAbilityButton::OnUnhovered()
 {
-	ShowAbilityDescription(false);
+	GetWorld()->GetTimerManager().ClearTimer(HoverTimerHandle);
+	DescriptionBorder->SetVisibility(ESlateVisibility::Hidden);
 }
 
 
-void UAbilityButton::ShowAbilityDescription(bool bShow, FString Text)
+void UAbilityButton::ShowAbilityDescription()
 {
-	if (bShow)
-	{
-		AbilityDescriptionText->SetText(FText::FromString(Text));
-		DescriptionBorder->SetVisibility(ESlateVisibility::Visible);
-	}
-	else
-	{
-		DescriptionBorder->SetVisibility(ESlateVisibility::Hidden);
-	}
+	AbilityDescriptionText->SetText(FText::FromString(Ability->Description));
+	DescriptionBorder->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UAbilityButton::SetButtonColor(FColor Color)

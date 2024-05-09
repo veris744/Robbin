@@ -40,6 +40,7 @@ public:
 	UFUNCTION()
 	void OnUnhovered();
 
+	FTimerHandle HoverTimerHandle;
 
 	UPROPERTY(meta = (BindWidget))
 		UTextBlock* ButtonText;
@@ -52,7 +53,7 @@ public:
 		UCommonTextBlock* AbilityDescriptionText;
 
 
-	void ShowAbilityDescription(bool bShow, FString Text = "");
+	void ShowAbilityDescription();
 
 	void SetButtonColor(FColor Color);
 
