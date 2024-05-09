@@ -134,15 +134,8 @@ public:
 
 	bool IsTTShown();
 
-	void UpdateWidgetPosition(UWidget* Widget);
-
-	UPROPERTY(meta = (BindWidget))
-	UBorder* DescriptionBorder;
-
-	UPROPERTY(meta = (BindWidget))
-	UCommonTextBlock* AbilityDescriptionText;
-
-	void ShowAbilityDescription(bool bShow, FString Text = "");
+	UFUNCTION(BlueprintCallable)
+	void UpdateWidgetPosition(UWidget* Widget, FVector2D Size);
 
 
 	///////////////////////////////////////////////////
@@ -150,7 +143,7 @@ public:
 	///////////////////////////////////////////////////
 
 	UFUNCTION()
-		void setCharacterColor(CharacterType CurrentCharacterType);
+		void SetCharacterColor(CharacterType CurrentCharacterType);
 
 	UFUNCTION()
 		void SetAbilityButtonColor(int nAbility);

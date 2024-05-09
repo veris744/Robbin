@@ -90,7 +90,7 @@ void ARobbinPlayerController::BeginPlay()
 			HUDWidget->AddToViewport();
 			HUDWidget->SetVisibility(ESlateVisibility::Visible);
 			HUDWidget->PlayerController = this;
-			HUDWidget->setCharacterColor(CurrentType);
+			HUDWidget->SetCharacterColor(CurrentType);
 			HUDWidget->SetButtonsAbilities();
 		}
 	}
@@ -119,17 +119,21 @@ APlayableCharacter* ARobbinPlayerController::GetCurrentCharacter()
 
 void ARobbinPlayerController::Tick(float DeltaSeconds)
 {
-	FHitResult Hit;
-	bool bActorIsHit = GetHitResultUnderCursor(ECC_EngineTraceChannel1, false, Hit);
+	if (HUDWidget->bInGameMode)
+	{
 
-	if (!HUDWidget->IsTTShown() && bActorIsHit)
-	{
-		AInteractiveActor* Actor = Cast<AInteractiveActor>(Hit.GetActor());
-		HUDWidget->ShowTT(true, Actor->DisplayName);
-	}
-	else if (HUDWidget->IsTTShown() && !bActorIsHit)
-	{
-		HUDWidget->ShowTT(false);
+		FHitResult Hit;
+		bool bActorIsHit = GetHitResultUnderCursor(ECC_EngineTraceChannel1, false, Hit);
+
+		if (!HUDWidget->IsTTShown() && bActorIsHit)
+		{
+			AInteractiveActor* Actor = Cast<AInteractiveActor>(Hit.GetActor());
+			HUDWidget->ShowTT(true, Actor->DisplayName);
+		}
+		else if (HUDWidget->IsTTShown() && !bActorIsHit)
+		{
+			HUDWidget->ShowTT(false);
+		}
 	}
 }
 
@@ -403,7 +407,7 @@ void ARobbinPlayerController::OnChangeCharacterTech()
 		StopMovement();
 		Possess(TechCharacter);
 		CurrentType = CharacterType::TECH;
-		HUDWidget->setCharacterColor(CurrentType);
+		HUDWidget->SetCharacterColor(CurrentType);
 		HUDWidget->SetButtonsAbilities();
 	}
 }
@@ -415,7 +419,7 @@ void ARobbinPlayerController::OnChangeCharacterSpy()
 		StopMovement();
 		Possess(SpyCharacter);
 		CurrentType = CharacterType::SPY;
-		HUDWidget->setCharacterColor(CurrentType);
+		HUDWidget->SetCharacterColor(CurrentType);
 		HUDWidget->SetButtonsAbilities();
 	}
 }
@@ -427,7 +431,7 @@ void ARobbinPlayerController::OnChangeCharacterScam()
 		StopMovement();
 		Possess(ScamCharacter);
 		CurrentType = CharacterType::SCAMMER;
-		HUDWidget->setCharacterColor(CurrentType);
+		HUDWidget->SetCharacterColor(CurrentType);
 		HUDWidget->SetButtonsAbilities();
 	}
 }

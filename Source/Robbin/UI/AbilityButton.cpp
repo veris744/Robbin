@@ -24,7 +24,7 @@ void UAbilityButton::NativeConstruct()
 
 void UAbilityButton::OnClicked()
 {
-	if (HUDWidget && HUDWidget->PlayerController)
+	if (HUDWidget && HUDWidget->PlayerController && HUDWidget->bInGameMode)
 	{
 		if (Ability->AbilityNo == AbilityNumber::ABILITY1)
 			HUDWidget->PlayerController->OnUseUAbility1();
