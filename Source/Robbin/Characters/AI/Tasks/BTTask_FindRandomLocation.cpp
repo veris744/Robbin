@@ -6,7 +6,8 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Robbin/Characters/AI/NPCs/NPCsAIController.h"
 
-UBTTask_FindRandomLocation::UBTTask_FindRandomLocation(FObjectInitializer const& ObjectInitializer)
+UBTTask_FindRandomLocation::UBTTask_FindRandomLocation(FObjectInitializer const& ObjectInitializer) :
+	UBTTask_BlackboardBase{ ObjectInitializer }
 {
 	NodeName = "Find Random Location in NavMesh";
 }
@@ -14,9 +15,9 @@ UBTTask_FindRandomLocation::UBTTask_FindRandomLocation(FObjectInitializer const&
 EBTNodeResult::Type UBTTask_FindRandomLocation::ExecuteTask(UBehaviorTreeComponent& OwnerComponent, uint8* NodeMemory)
 {
 	//coger el AIController y su NPC
-	if (auto* const cont = Cast<ANPCsAIController>(OwnerComponent.GetAIOwner()))
+	if (auto* const npcController = Cast<ANPCsAIController>(OwnerComponent.GetAIOwner()))
 	{
-		if (auto* const npc = cont->GetPawn())
+		if (auto* const npc = npcController->GetPawn())
 		{
 			//localizacion del npc como punto de partida
 			auto const Origin = npc->GetActorLocation();

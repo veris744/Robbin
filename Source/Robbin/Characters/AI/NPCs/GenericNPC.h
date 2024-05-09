@@ -9,6 +9,7 @@
 
 class UBehaviorTree;
 class UBlackboardComponent;
+class APatrolPath;
 /**
  * 
  */
@@ -24,17 +25,23 @@ public:
 
 	//virtual void Tick(float DeltaSeconds) override;
 
+	UBehaviorTree* GetBehaviourTree() const;
+
+	APatrolPath* GetPatrolPath() const;
+
+	void ShowVisionCone(bool bShow);
+
 	UPROPERTY(VisibleAnywhere, Category = "Robbing|Vision")
 		UStaticMeshComponent* VisionMeshComponent;
 
-
-	UPROPERTY(EditDefaultsOnly, Category = "Robbin | General")
-		UBehaviorTree* EnemyBehaviorTree;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbin | General", meta=(AllowPrivateAccess="true"))
+	UBehaviorTree* EnemyBehaviorTree;
 		
 	UPROPERTY()
 	UBlackboardComponent* pMyBlackboardComponent;
 
-	UBehaviorTree* GetBehaviourTree() const;
+private:
 
-	void ShowVisionCone(bool bShow);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbin | General", meta = (AllowPrivateAccess = "true"))
+	APatrolPath* PatrolPath;
 };
