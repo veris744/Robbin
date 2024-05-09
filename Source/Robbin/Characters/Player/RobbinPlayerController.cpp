@@ -38,41 +38,12 @@ ARobbinPlayerController::ARobbinPlayerController()
 
 }
 
-void ARobbinPlayerController::Tick(float DeltaSeconds)
-{
-	FHitResult Hit;
-	bool bActorIsHit = GetHitResultUnderCursor(ECC_EngineTraceChannel1, false, Hit);
-
-	if (!HUDWidget->IsTTShown() && bActorIsHit)
-	{
-		AInteractiveActor* Actor = Cast<AInteractiveActor>(Hit.GetActor());
-		HUDWidget->ShowTT(true, Actor->DisplayName);
-	}
-	else if (HUDWidget->IsTTShown() && !bActorIsHit)
-	{
-		HUDWidget->ShowTT(false);
-	}
-}
-
 void ARobbinPlayerController::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
 
 	AbilitiesManager = Cast<ARobbinGameMode>(GetWorld()->GetAuthGameMode())->GetAbilitiesManager();
-
-	if (GetWorld())
-	{
-		HUDWidget = CreateWidget<UMainUserWidget>(this, HUDClass);
-
-		if (HUDWidget)
-		{
-			HUDWidget->AddToViewport();
-			HUDWidget->SetVisibility(ESlateVisibility::Visible);
-			HUDWidget->PlayerController = this;
-			HUDWidget->setCharacterColor(CurrentType);
-		}
-	}
 
 	//Add Input Mapping Context
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
@@ -109,6 +80,22 @@ void ARobbinPlayerController::BeginPlay()
 	else if (CurrentType == CharacterType::SCAMMER)
 		Possess(ScamCharacter);
 
+
+	if (GetWorld())
+	{
+		HUDWidget = CreateWidget<UMainUserWidget>(this, HUDClass);
+
+		if (HUDWidget)
+		{
+			HUDWidget->AddToViewport();
+			HUDWidget->SetVisibility(ESlateVisibility::Visible);
+			HUDWidget->PlayerController = this;
+			HUDWidget->setCharacterColor(CurrentType);
+			HUDWidget->SetButtonsAbilities();
+		}
+	}
+
+
 	if (HUDWidget)
 	{
 		TechCharacter->HUDWidget = HUDWidget;
@@ -128,6 +115,24 @@ APlayableCharacter* ARobbinPlayerController::GetCurrentCharacter()
 
 	return nullptr;
 }
+
+
+void ARobbinPlayerController::Tick(float DeltaSeconds)
+{
+	FHitResult Hit;
+	bool bActorIsHit = GetHitResultUnderCursor(ECC_EngineTraceChannel1, false, Hit);
+
+	if (!HUDWidget->IsTTShown() && bActorIsHit)
+	{
+		AInteractiveActor* Actor = Cast<AInteractiveActor>(Hit.GetActor());
+		HUDWidget->ShowTT(true, Actor->DisplayName);
+	}
+	else if (HUDWidget->IsTTShown() && !bActorIsHit)
+	{
+		HUDWidget->ShowTT(false);
+	}
+}
+
 
 void ARobbinPlayerController::SetupInputComponent()
 {
@@ -399,6 +404,7 @@ void ARobbinPlayerController::OnChangeCharacterTech()
 		Possess(TechCharacter);
 		CurrentType = CharacterType::TECH;
 		HUDWidget->setCharacterColor(CurrentType);
+		HUDWidget->SetButtonsAbilities();
 	}
 }
 
@@ -410,6 +416,7 @@ void ARobbinPlayerController::OnChangeCharacterSpy()
 		Possess(SpyCharacter);
 		CurrentType = CharacterType::SPY;
 		HUDWidget->setCharacterColor(CurrentType);
+		HUDWidget->SetButtonsAbilities();
 	}
 }
 
@@ -421,6 +428,7 @@ void ARobbinPlayerController::OnChangeCharacterScam()
 		Possess(ScamCharacter);
 		CurrentType = CharacterType::SCAMMER;
 		HUDWidget->setCharacterColor(CurrentType);
+		HUDWidget->SetButtonsAbilities();
 	}
 }
 

@@ -14,6 +14,7 @@ class UTextBlock;
 class UListView;
 class ARobbinPlayerController;
 class UCommonTextBlock;
+class UAbilityButton;
 
 
 
@@ -55,26 +56,28 @@ public:
 	///////////////////////////////////////////////////
 
 	UPROPERTY(meta = (BindWidget))
-		UButton* Ability1Button;
+		UAbilityButton* Ability1Button;
 
 	UPROPERTY(meta = (BindWidget))
-		UButton* Ability2Button;
+		UAbilityButton* Ability2Button;
 
 	UPROPERTY(meta = (BindWidget))
-		UButton* Ability3Button;
+		UAbilityButton* Ability3Button;
 
 	UPROPERTY(meta = (BindWidget))
-		UButton* Ability4Button;
+		UAbilityButton* Ability4Button;
 
 	UPROPERTY(meta = (BindWidget))
-		UButton* Ability5Button;
+		UAbilityButton* Ability5Button;
 
 	UPROPERTY(meta = (BindWidget))
-		UButton* Ability6Button;
+		UAbilityButton* Ability6Button;
 
 	UPROPERTY(meta = (BindWidget))
-		UButton* Ability7Button;
+		UAbilityButton* Ability7Button;
 
+
+	void SetButtonsAbilities();
 
 	///////////////////////////////////////////////////
 	/////////////////// SUSPICION /////////////////////
@@ -175,38 +178,6 @@ private:
 	UFUNCTION()
 		void OnClickedScam();
 
-
-	///////////////////////////////////////////////////
-	////////// BUTTON ABILITIES FUNCTION //////////////
-	///////////////////////////////////////////////////
-
-	UFUNCTION()
-		void OnClickedA1();
-
-	UFUNCTION()
-		void OnClickedA2();
-
-	UFUNCTION()
-		void OnClickedA3();
-
-	UFUNCTION()
-		void OnClickedA4();
-
-	UFUNCTION()
-		void OnClickedA5();
-
-	UFUNCTION()
-		void OnClickedA6();
-
-	UFUNCTION()
-		void OnClickedA7();
-
-
-	UFUNCTION()
-		void OnHoveredA1();
-
-	UFUNCTION()
-		void OnUnhoveredA1();
 
 	UFUNCTION()
 		void OnExitCamera();
