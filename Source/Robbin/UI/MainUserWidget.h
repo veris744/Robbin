@@ -13,6 +13,7 @@ class UBorder;
 class UTextBlock;
 class UListView;
 class ARobbinPlayerController;
+class UCommonTextBlock;
 
 
 
@@ -119,19 +120,26 @@ public:
 	///////////////// TOOLTIP /////////////////////////
 	///////////////////////////////////////////////////
 
+
 	UPROPERTY(meta = (BindWidget))
 	UBorder* TTBorder;
 
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* TTText;
 
-	void ShowTT(FVector2D MousePos, FString Text);
-
-	void HideTT();
+	void ShowTT(bool bShow, FString Text = "");
 
 	bool IsTTShown();
 
-	void UpdateTTPosition(FVector2D MousePos);
+	void UpdateWidgetPosition(UWidget* Widget);
+
+	UPROPERTY(meta = (BindWidget))
+	UBorder* DescriptionBorder;
+
+	UPROPERTY(meta = (BindWidget))
+	UCommonTextBlock* AbilityDescriptionText;
+
+	void ShowAbilityDescription(bool bShow, FString Text = "");
 
 
 	///////////////////////////////////////////////////
@@ -192,6 +200,13 @@ private:
 
 	UFUNCTION()
 		void OnClickedA7();
+
+
+	UFUNCTION()
+		void OnHoveredA1();
+
+	UFUNCTION()
+		void OnUnhoveredA1();
 
 	UFUNCTION()
 		void OnExitCamera();
