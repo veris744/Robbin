@@ -32,9 +32,6 @@ void UMainUserWidget::NativeConstruct()
 	TTBorder->SetVisibility(ESlateVisibility::Hidden);
 	TTText->SetText(FText::FromString(""));
 
-	DescriptionBorder->SetVisibility(ESlateVisibility::Hidden);
-	AbilityDescriptionText->SetText(FText::FromString("Lorem ipsum dolor sit amet consectetur adipiscing, elit commodo lobortis facilisi dapibus placerat euismod, lacinia vivamus vestibulum taciti aliquam. Nam nunc massa ad rutrum tortor dui non, quam diam velit taciti convallis vivamus, dictumst conubia porttitor pellentesque enim phasellus. Placerat montes nibh arcu molestie dignissim velit integer urna, vel conubia laoreet ullamcorper pretium sodales magnis luctus, ridiculus porttitor sed fringilla eu iaculis volutpat."));
-	
 
 	//Setup Ability Buttons
 	Ability1Button->HUDWidget = this;
@@ -60,7 +57,7 @@ void UMainUserWidget::ShowTT(bool bShow, FString Text)
 	if (bShow)
 	{
 		TTText->SetText(FText::FromString(Text));
-		UpdateWidgetPosition(TTBorder);
+		UpdateWidgetPosition(TTBorder, TTBorder->GetDesiredSize());
 		TTBorder->SetVisibility(ESlateVisibility::Visible);
 	}
 	else
@@ -77,7 +74,7 @@ bool UMainUserWidget::IsTTShown()
 	return false;
 }
 
-void UMainUserWidget::UpdateWidgetPosition(UWidget* Widget)
+void UMainUserWidget::UpdateWidgetPosition(UWidget* Widget, FVector2D Size)
 {
 	FVector2D Mouse2D;
 	PlayerController->GetMousePosition(Mouse2D.X, Mouse2D.Y);
@@ -94,37 +91,23 @@ void UMainUserWidget::UpdateWidgetPosition(UWidget* Widget)
 
 	if (fin.X > 0)
 	{
-		fin.X -= Widget->GetDesiredSize().X;
+		fin.X -= Size.X;
 	}
 
 	if (fin.Y > 0)
 	{
-		fin.Y -= Widget->GetDesiredSize().Y;
+		fin.Y -= Size.Y;
 	}
 	else
 	{
-		fin.Y += Widget->GetDesiredSize().Y / 4;
+		fin.Y += Size.Y / 4;
 	}
 
 	Widget->SetRenderTranslation(fin);
 
 }
 
-void UMainUserWidget::ShowAbilityDescription(bool bShow, FString Text)
-{
-	if (bShow)
-	{
-		AbilityDescriptionText->SetText(FText::FromString(Text));
-		UpdateWidgetPosition(DescriptionBorder);
-		DescriptionBorder->SetVisibility(ESlateVisibility::Visible);
-	}
-	else
-	{
-		DescriptionBorder->SetVisibility(ESlateVisibility::Hidden);
-	}
-}
-
-void UMainUserWidget::setCharacterColor(CharacterType CurrentCharacterType)
+void UMainUserWidget::SetCharacterColor(CharacterType CurrentCharacterType)
 {
 	switch (CurrentCharacterType)
 	{
@@ -227,8 +210,12 @@ void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
 {
 	if (!actor)	return;
 
+
+	ShowTT(false);
+
 	DisplayedInteractive = actor;
 	PlayerController->SetInputMode(FInputModeUIOnly());
+	bInGameMode = false;
 	
 	TArray<FString> abis;
 	actor->DisplayableActions.GetKeys(abis);
@@ -239,6 +226,16 @@ void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
 		ActionsList->AddItem(item1);
 		TempTexts.Add(ability);
 	}
+
+
+	Ability1Button->SetVisibility(ESlateVisibility::HitTestInvisible);
+	Ability2Button->SetVisibility(ESlateVisibility::HitTestInvisible);
+	Ability3Button->SetVisibility(ESlateVisibility::HitTestInvisible);
+	Ability4Button->SetVisibility(ESlateVisibility::HitTestInvisible);
+	Ability5Button->SetVisibility(ESlateVisibility::HitTestInvisible);
+	Ability6Button->SetVisibility(ESlateVisibility::HitTestInvisible);
+	Ability7Button->SetVisibility(ESlateVisibility::HitTestInvisible);
+
 }
 
 
