@@ -32,6 +32,11 @@ UBehaviorTree* AGenericNPC::GetBehaviourTree() const
 	return EnemyBehaviorTree;
 }
 
+APatrolPath* AGenericNPC::GetPatrolPath() const
+{
+	return PatrolPath;
+}
+
 void AGenericNPC::ShowVisionCone(bool bShow)
 {
 	if (bShow)
