@@ -4,6 +4,7 @@
 #include "BTTask_IncrementPathIndex.h"
 #include "Robbin/Characters/AI/NPCs/NPCsAIController.h"
 #include "Robbin/Characters/AI/NPCs/GenericNPC.h"
+#include "Robbin/Characters/AI/NPCs/PatrolPath.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
 UBTTask_IncrementPathIndex::UBTTask_IncrementPathIndex(FObjectInitializer const& ObjectInitializer) :
