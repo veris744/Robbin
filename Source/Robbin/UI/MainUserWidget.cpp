@@ -238,6 +238,12 @@ void UMainUserWidget::ShowActionsMenu(AInteractiveActor* actor)
 
 }
 
+void UMainUserWidget::EmptyActionsMenu()
+{
+	ActionsList->ClearListItems();
+	TempTexts.Empty();
+}
+
 
 void UMainUserWidget::SetMenuClickedFunctions(UMenuItem* MenuItem, FString NameElement)
 {
@@ -269,7 +275,6 @@ void UMainUserWidget::SetGameMode()
 
 	ExitCameraButton->SetVisibility(ESlateVisibility::Hidden);
 
-	ActionsList->ClearListItems();
 }
 
 void UMainUserWidget::SetCameraMode()

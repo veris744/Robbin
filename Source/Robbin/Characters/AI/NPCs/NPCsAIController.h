@@ -60,7 +60,7 @@ public:
 		float SightRadius = 500.f;
 
 	UPROPERTY(EditAnywhere)
-		float PeripheralVisionAngleDegrees = 90.f;
+		float PeripheralVisionAngleDegrees = 45.f;
 
 protected:
 	virtual void OnPossess(APawn* InPawn) override;

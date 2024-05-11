@@ -110,6 +110,7 @@ public:
 	UFUNCTION()
 		void ShowActionsMenu(AInteractiveActor* actor);
 
+	void EmptyActionsMenu();
 
 	///////////////////////////////////////////////////
 	///////////////// CAMERA OPTIONS //////////////////

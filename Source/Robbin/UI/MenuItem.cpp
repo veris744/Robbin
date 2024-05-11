@@ -37,5 +37,6 @@ void UMenuItem::OnClicked()
 	if (HUD)
 	{
 		HUD->SetGameMode();
+		HUD->EmptyActionsMenu();
 	}
 }

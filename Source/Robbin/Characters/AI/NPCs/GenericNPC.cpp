@@ -21,9 +21,9 @@ void AGenericNPC::BeginPlay()
 	if (AIController)
 	{
 		float ancho = tan(AIController->PeripheralVisionAngleDegrees / 2) * AIController->SightRadius;
-		VisionMeshComponent->SetWorldScale3D(FVector(0.001f, ancho * 2 / 100, AIController->SightRadius / 100));
-		VisionMeshComponent->SetRelativeLocation(VisionMeshComponent->GetRelativeLocation() + 
-			GetActorForwardVector() * (AIController->SightRadius / 4 * 3));
+		VisionMeshComponent->SetWorldScale3D(FVector(0.001f, ancho / 100, AIController->SightRadius / 100));
+		//VisionMeshComponent->SetRelativeLocation(VisionMeshComponent->GetRelativeLocation() + 
+		//	GetActorForwardVector() * (AIController->SightRadius / 4 * 3));
 	}
 }
 
