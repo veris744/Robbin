@@ -3,6 +3,10 @@
 
 #include "ScammerCharacter.h"
 #include <Robbin/InteractiveActors/Scammer/SuspiciousBag.h>
+#include <Kismet/GameplayStatics.h>
+#include <Robbin/Characters/AI/NPCs/NPCsAIController.h>
+#include "BehaviorTree/BlackboardComponent.h"
+#include "BrainComponent.h"
 
 void AScammerCharacter::DoAbility1()
 {
@@ -23,6 +27,12 @@ void AScammerCharacter::DoAbility1()
 					Location, FRotator(), SpawnInfo);
 
 				SuspiciousBag->Character = this;
+
+
+				TArray<AActor*> FoundActors;
+				UGameplayStatics::GetAllActorsOfClass(GetWorld(), ANPCsAIController::StaticClass(), FoundActors);
+				Cast<ANPCsAIController>(FoundActors[0])->GetBrainComponent()->GetBlackboardComponent()->SetValueAsBool("BagSearch", true);
+				Cast<ANPCsAIController>(FoundActors[0])->GetBrainComponent()->GetBlackboardComponent()->SetValueAsVector("TargetLocation", Location);
 			}
 		}
 	}
