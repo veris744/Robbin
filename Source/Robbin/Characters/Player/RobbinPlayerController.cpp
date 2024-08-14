@@ -22,6 +22,7 @@
 #include "GameFramework/GameModeBase.h"
 #include <Subsystems/PanelExtensionSubsystem.h>
 #include <Robbin/RobbinGameMode.h>
+#include <Robbin/Characters/AI/NPCs/GenericNPC.h>
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -203,7 +204,8 @@ void ARobbinPlayerController::OnSetDestinationTriggered()
 	// If we hit a surface, cache the location
 	if (bHitSuccessful)
 	{
-		if (Hit.GetActor()->GetClass()->IsChildOf(AInteractiveActor::StaticClass()))
+		if (Hit.GetActor()->GetClass()->IsChildOf(AInteractiveActor::StaticClass())
+			|| Hit.GetActor()->GetClass()->IsChildOf(AGenericNPC::StaticClass()))
 		{
 			DestinationActor = Hit.GetActor();
 		}
@@ -240,13 +242,20 @@ void ARobbinPlayerController::OnSetDestinationReleased()
 	}
 	else
 	{
-		AInteractiveActor* Interactive = nullptr;
-		if (DestinationActor)
+		if (DestinationActor && DestinationActor->GetClass()->IsChildOf(AInteractiveActor::StaticClass()))
 		{
-			Interactive = Cast<AInteractiveActor>(DestinationActor);
+			AInteractiveActor* Interactive = Cast<AInteractiveActor>(DestinationActor);
+			Cast<APlayableCharacter>(GetCharacter())->ExecuteAbility(ActiveAbility, Interactive);
 		}
-
-		Cast<APlayableCharacter>(GetCharacter())->ExecuteAbility(ActiveAbility, Interactive);
+		else if (DestinationActor && DestinationActor->GetClass()->IsChildOf(AGenericCharacter::StaticClass()))
+		{
+			AGenericNPC* NPC = Cast<AGenericNPC>(DestinationActor);
+			NPC->DialoguesTriggered();
+		}
+		else
+		{
+			Cast<APlayableCharacter>(GetCharacter())->ExecuteAbility(ActiveAbility, nullptr);
+		}
 
 		DestinationActor = nullptr;
 		ActiveAbility = nullptr;

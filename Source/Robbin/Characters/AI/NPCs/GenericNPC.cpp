@@ -3,11 +3,17 @@
 
 #include "GenericNPC.h"
 #include "NPCsAIController.h"
+#include "Robbin/Dialogues/DialoguesManager.h"
+#include <Robbin/RobbinGameMode.h>
+#include "Components/CapsuleComponent.h"
+
 
 AGenericNPC::AGenericNPC()
 {
 	VisionMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Vision Mesh"));
 	VisionMeshComponent->SetupAttachment(RootComponent);
+
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_EngineTraceChannel1, ECR_Block);
 }
 
 void AGenericNPC::BeginPlay()
@@ -25,6 +31,9 @@ void AGenericNPC::BeginPlay()
 		//VisionMeshComponent->SetRelativeLocation(VisionMeshComponent->GetRelativeLocation() + 
 		//	GetActorForwardVector() * (AIController->SightRadius / 4 * 3));
 	}
+
+	DialoguesManager = Cast<ARobbinGameMode>(GetWorld()->GetAuthGameMode())->GetDialoguesManager();
+	Dialogues = DialoguesManager->GetIdsFromNPCType(AGenericNPC::StaticClass());
 }
 
 UBehaviorTree* AGenericNPC::GetBehaviourTree() const
@@ -47,4 +56,10 @@ void AGenericNPC::ShowVisionCone(bool bShow)
 	{
 		VisionMeshComponent->SetVisibility(false);
 	}
+}
+
+void AGenericNPC::DialoguesTriggered()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Green, TEXT("Scammer Ability1"));
+
 }

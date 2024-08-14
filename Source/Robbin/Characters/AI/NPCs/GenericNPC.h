@@ -10,6 +10,7 @@
 class UBehaviorTree;
 class UBlackboardComponent;
 class APatrolPath;
+class UDialoguesManager;
 /**
  * 
  */
@@ -40,8 +41,17 @@ public:
 	UPROPERTY()
 	UBlackboardComponent* pMyBlackboardComponent;
 
+	void DialoguesTriggered();
+
 private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Robbin | General", meta = (AllowPrivateAccess = "true"))
 	APatrolPath* PatrolPath;
+
+
+	UPROPERTY()
+	UDialoguesManager* DialoguesManager;
+
+	UPROPERTY()
+	TArray<int> Dialogues;
 };

@@ -8,18 +8,23 @@
 
 
 class UStaticAbilities;
+class UDialoguesManager;
 
 UCLASS(minimalapi)
 class ARobbinGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+	UStaticAbilities* AbilitiesManager;
+
+	UDialoguesManager* DialoguesManager;
+
 public:
 	ARobbinGameMode();
 
-	UStaticAbilities* AbilitiesManager;
-
 	FORCEINLINE UStaticAbilities* GetAbilitiesManager() { return AbilitiesManager; };
+
+	FORCEINLINE UDialoguesManager* GetDialoguesManager() { return DialoguesManager; };
 
 };
 

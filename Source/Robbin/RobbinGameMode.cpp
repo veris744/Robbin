@@ -5,6 +5,7 @@
 #include "RobbinCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Abilities/StaticAbilities.h"
+#include "Dialogues/DialoguesManager.h"
 #include "UI/MainUserWidget.h"
 
 
@@ -13,6 +14,9 @@ ARobbinGameMode::ARobbinGameMode()
 
 	AbilitiesManager = NewObject<UStaticAbilities>();
 	AbilitiesManager->init();
+
+	DialoguesManager = NewObject<UDialoguesManager>();
+	DialoguesManager->init();
 
 	// use our custom PlayerController class
 	PlayerControllerClass = ARobbinPlayerController::StaticClass();
